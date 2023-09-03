@@ -1,0 +1,27 @@
+footer {
+  height: 10vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(to right, #eeeeee, #64ccc5, #176b87, #053b50);
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  margin: 0 5px;
+}
+a{
+  text-decoration: none;
+  color: #eeeeee;
+}
+.left a{
+  color: #053b50;
+}

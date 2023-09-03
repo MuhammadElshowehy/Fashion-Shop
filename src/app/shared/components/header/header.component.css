@@ -1,0 +1,40 @@
+nav {
+  background: linear-gradient(to left, #eeeeee, #64ccc5, #176b87, #053b50);
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+a.navbar-brand{
+  font-size: 1.5rem;
+}
+a,
+button {
+  color: #eeeeee;
+}
+a:active{
+  background-color: transparent;
+}
+button.navbar-toggler:active,
+button.navbar-toggler:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+@media (min-width: 992px) {
+  .user-menu {
+    position: absolute;
+    right: 12px;
+  }
+  button.dropdown-toggle,
+  .dropdown-menu a {
+    color: #053b50;
+  }
+  .dropdown-menu {
+    right: 0;
+  }
+}
+@media (max-width: 991px) {
+  ul.dropdown-menu a {
+    color: #053b50;
+  }
+}
