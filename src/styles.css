@@ -1,8 +1,9 @@
 :root {
-  --grey: #eeeeee;
-  --teal: #64ccc5;
-  --blue: #176b87;
-  --navy: #053b50;
+  --orange: #D98A29;
+  --darkOrange: #D94B2B;
+  --darkPurple: #590e2a;
+  --purple: #A63F82;
+  --white: #ffffff;
 }
 html * {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
@@ -11,12 +12,19 @@ html * {
   scroll-behavior: smooth;
 }
 body {
-  min-height: 100vh;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
-/* transform: translateY(-3px);
-box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35); */
+a{
+  text-decoration: none;
+  cursor: pointer;
+}
+input:active,
+input:focus,
+button:active,
+button:focus{
+  box-shadow: 0 0 0 0.25rem rgba(89, 14, 42, 0.5) !important;
+}

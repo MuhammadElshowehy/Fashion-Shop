@@ -1,0 +1,18 @@
+div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 200px;
+}
+div p{
+  font-size: 2rem;
+  color: var(--darkOrange);
+}
+button{
+  background-color: var(--darkPurple);
+  padding: 5px 50px;
+}
+button:hover{
+  background-color: var(--purple);
+}
