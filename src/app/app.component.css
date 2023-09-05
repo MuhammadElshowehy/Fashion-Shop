@@ -1,5 +1,5 @@
 .container{
   padding-top: 50px;
   padding-bottom: 50px;
-  min-height: calc(100vh - 130px);
+  min-height: 90vh; /* header min-height: 10vh; */
 }

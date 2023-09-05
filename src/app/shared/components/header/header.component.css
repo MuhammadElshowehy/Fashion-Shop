@@ -6,6 +6,7 @@ nav {
     var(--orange),
     var(--darkOrange)
   );
+  min-height: 10vh;
   position: sticky;
   left: 0;
   top: 0;
