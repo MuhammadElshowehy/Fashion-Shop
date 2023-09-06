@@ -1,0 +1,18 @@
+<a class="product">
+  <div class="card">
+    <img
+      src="{{ productComp.image }}"
+      class="card-img-top image-product"
+      alt="{{ productComp.title }}"
+    />
+    <div class="card-body">
+      <h5 class="card-title text-center" title="{{ productComp.title }}">
+        {{ productComp.title }}
+      </h5>
+      <p class="card-text text-center" title="{{ productComp.description }}">
+        {{ productComp.description }}
+      </p>
+      <p class="price text-center">{{ productComp.price | currency }}</p>
+    </div>
+  </div>
+</a>

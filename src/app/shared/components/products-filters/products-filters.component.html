@@ -1,0 +1,13 @@
+<div class="filters">
+  <p>Filters by:</p>
+  <div
+    class="btn-group"
+    role="group"
+    aria-label="Basic mixed styles example"
+    *ngFor="let category of categories; let i = index"
+  >
+    <button type="button" class="btn" (click)="SendSelectedFilter($event)">
+      {{ category }}
+    </button>
+  </div>
+</div>

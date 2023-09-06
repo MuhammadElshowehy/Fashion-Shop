@@ -1,0 +1,27 @@
+/* filters */
+.row:nth-child(2){
+  margin-bottom: 1.5rem;
+}
+.filters{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.filters p{
+  color: var(--darkPurple);
+  font-size: 1.25rem;
+  margin: 0 10px 5px 0;
+}
+.btn-group button {
+  background-color: var(--purple);
+  color: var(--white);
+  padding: 10px;
+  margin: 0 5px 5px 0;
+  border-radius: 8px !important;
+  white-space: nowrap;
+}
+.btn-group button:hover{
+  background-color: var(--darkPurple);
+}

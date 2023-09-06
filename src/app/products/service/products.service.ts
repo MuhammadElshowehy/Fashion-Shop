@@ -18,8 +18,12 @@ export class ProductsService {
     return this.products.slice();
   }
 
+  getAllCategories() {
+    return this.http.get(environment.baseAPI + 'products/categories');
+  }
+
   handleFetchError(error: any) {
-    let errorMsg: string = 'sorry, an unknown error occur';
+    let errorMsg: string = 'sorry, an unknown error occurred!';
     if (error.status === 404) {
       errorMsg = 'page you request not found';
     } else if (error.status === 500) {
@@ -28,24 +32,9 @@ export class ProductsService {
     return errorMsg;
   }
 
-  /** start filters methods **/
-  filterByElectronics() {
-    return this.http.get(environment.baseAPI + 'products/category/electronics');
+  filterReq(category: string) {
+    let apiLink = environment.baseAPI + 'products/category/' + category;
+    // console.log(apiLink);
+    return this.http.get(apiLink);
   }
-
-  filterByJewelry() {
-    return this.http.get(environment.baseAPI + 'products/category/jewelery');
-  }
-
-  filterByMenClothes() {
-    return this.http.get(
-      environment.baseAPI + "products/category/men's clothing"
-    );
-  }
-  filterByWomenClothes() {
-    return this.http.get(
-      environment.baseAPI + "products/category/women's clothing"
-    );
-  }
-  /** end filters methods **/
 }

@@ -1,0 +1,26 @@
+.card {
+  margin-top: 20px;
+}
+.card-title {
+  color: var(--darkOrange);
+  max-height: 20px;
+  overflow: hidden;
+}
+.card-text{
+  max-height: 50px;
+  overflow: hidden;
+}
+.card img.image-product {
+  max-width: 100%;
+  height: 200px;
+  border-bottom: 1px solid var(--darkOrange);
+}
+.card h5::first-letter {
+  text-transform: uppercase;
+}
+.price {
+  color: var(--orange);
+  font-size: 1.5rem;
+  width: 100%;
+  margin: 0;
+}

@@ -1,44 +1,19 @@
 /* search */
-.row:first-child div{
+.row:first-child div {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
-.row:first-child div input{
+.row:first-child div input {
   border: 2px solid var(--purple);
 }
 @media (max-width: 576px) {
-  .row:first-child div input{
+  .row:first-child div input {
     width: 160px;
   }
 }
-/* filters */
-.row:nth-child(2){
-  margin-bottom: 1.5rem;
-}
-.filters{
-  display: flex;
-  flex-direction: column;
-}
-.filters span{
-  color: var(--darkPurple);
-  font-size: 1.25rem;
-}
-.btn-group{
-  display: flex;
-  justify-content: space-around;
-  column-gap: 5px;
-}
-.btn-group button {
-  background-color: var(--purple);
-  color: var(--white);
-  width: min-content;
-  padding: 5px 0;
-}
-.btn-group button:hover{
-  background-color: var(--darkPurple);
-}
-/* product card */
+/* products */
 @media (max-width: 576px) {
   .products {
     max-width: 360px;
@@ -47,56 +22,32 @@
     justify-content: center;
   }
 }
-.card {
-  margin-bottom: 20px;
+.product{
   transition: 0.25s;
 }
-.card-title {
-  color: var(--darkOrange);
-  max-height: 20px;
-  overflow: hidden;
-}
-.card-text{
-  max-height: 50px;
-  overflow: hidden;
-}
-.card img.image-product {
-  max-width: 100%;
-  height: 200px;
-  border-bottom: 1px solid var(--darkOrange);
-}
-.card h5::first-letter {
-  text-transform: uppercase;
-}
-.card:hover {
+.product:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 15px var(--orange);
 }
-.price {
-  color: var(--orange);
-  font-size: 1.5rem;
-}
+/* action buttons */
 .actions {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   padding: 10px 5px;
+  margin-top: 0;
   background: linear-gradient(to left, var(--purple), var(--orange));
 }
 .actions button:hover {
   background-color: var(--darkPurple);
 }
-.price {
-  width: 100%;
-  margin: 0;
-}
 .actions button {
   width: 25%;
+  padding: 0;
   border: 1px solid var(--darkPurple);
 }
 .actions button img {
   width: 100%;
-  height: 30px;
+  height: 40px;
   filter: invert(1);
 }
-

@@ -10,11 +10,13 @@ import { ProductsService } from '../../service/products.service';
 export class AllProductsComponent implements OnInit {
   constructor(private productsService: ProductsService) {}
   products: ProductModel[] = [];
+  categories: string[] = [];
   isLoading: boolean = false;
   errorMsg: string = '';
 
   ngOnInit() {
     this.showProducts();
+    this.getAllCategories();
   }
 
   showProducts() {
@@ -32,67 +34,44 @@ export class AllProductsComponent implements OnInit {
     );
   }
 
-  received(data: string) {
+  receivedFromErrorComp(data: string) {
     this.errorMsg = data;
   }
 
-  filterByAll() {
-    this.showProducts();
+  getAllCategories() {
+    this.productsService.getAllCategories().subscribe((res: string[]) => {
+      // console.log(res);
+      res.unshift('all');
+      this.categories = res;
+      // console.log(this.categories);
+    });
   }
 
-  filterByElectronics() {
+  filterBy($event: Event) {
     this.isLoading = true;
-    this.productsService.filterByElectronics().subscribe(
-      (res: ProductModel[]) => {
-        this.products = res;
-        this.isLoading = false;
-      },
-      (error) => {
-        this.errorMsg = this.productsService.handleFetchError(error);
-        this.isLoading = false;
-      }
-    );
+    let category: string = (<HTMLButtonElement>$event.target).innerHTML;
+    // console.log(category);
+    category = category.trim();
+    if (category === 'all') {``
+      this.showProducts();
+    } else {
+      this.productsService.filterReq(category).subscribe(
+        (res: ProductModel[]) => {
+          // console.log(res);
+          this.products = res;
+          this.isLoading = false;
+        },
+        (error) => {
+          // console.log(error);
+          this.errorMsg = this.productsService.handleFetchError(error);
+          this.isLoading = false;
+        }
+      );
+    }
   }
 
-  filterByJewelry() {
-    this.isLoading = true;
-    this.productsService.filterByJewelry().subscribe(
-      (res: ProductModel[]) => {
-        this.products = res;
-        this.isLoading = false;
-      },
-      (error) => {
-        this.errorMsg = this.productsService.handleFetchError(error);
-        this.isLoading = false;
-      }
-    );
-  }
-
-  filterByMenClothes() {
-    this.isLoading = true;
-    this.productsService.filterByMenClothes().subscribe(
-      (res: ProductModel[]) => {
-        this.products = res;
-        this.isLoading = false;
-      },
-      (error) => {
-        this.errorMsg = this.productsService.handleFetchError(error);
-        this.isLoading = false;
-      }
-    );
-  }
-
-  filterByWomenClothes() {
-    this.isLoading = true;
-    this.productsService.filterByWomenClothes().subscribe(
-      (res: ProductModel[]) => {
-        this.products = res;
-        this.isLoading = false;
-      },
-      (error) => {
-        this.errorMsg = this.productsService.handleFetchError(error);
-        this.isLoading = false;
-      }
-    );
+  add($event: Event){
+    let id = parseInt((<HTMLButtonElement>$event.target).value);
+    console.log(id);
   }
 }

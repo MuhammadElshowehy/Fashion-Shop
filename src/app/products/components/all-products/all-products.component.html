@@ -2,7 +2,7 @@
 <app-error-message
   *ngIf="errorMsg"
   [errorMessage]="errorMsg"
-  (closeError)="received($event)"
+  (closeError)="receivedFromErrorComp($event)"
 ></app-error-message>
 <!-- separate -->
 <main *ngIf="!isLoading">
@@ -21,66 +21,37 @@
     </div>
   </div>
   <div class="row">
-    <div class="filters">
-      <span>Filters by:</span>
-      <div
-        class="btn-group"
-        role="group"
-        aria-label="Basic mixed styles example"
-      >
-        <button type="button" class="btn" (click)="filterByAll()">all</button>
-        <button type="button" class="btn" (click)="filterByElectronics()">
-          electronics
-        </button>
-        <button type="button" class="btn" (click)="filterByJewelry()">
-          jewelry
-        </button>
-        <button type="button" class="btn" (click)="filterByMenClothes()">
-          men's clothing
-        </button>
-        <button type="button" class="btn" (click)="filterByWomenClothes()">
-          women's clothing
-        </button>
-      </div>
-    </div>
+    <app-products-filters
+      [categories]="categories"
+      (selectedFilter)="filterBy($event)"
+    ></app-products-filters>
   </div>
   <div class="row">
     <div
       class="products col-sm-6 col-md-6 col-xl-3 col-lg-4"
-      *ngFor="let product of products"
+      *ngFor="let product of products; let i = index"
     >
-      <a class="product">
-        <div class="card">
+    <div class="product">
+      <app-product [productComp]="product"></app-product>
+      <div class="actions">
+        <button class="btn">
           <img
-            src="{{ product.image }}"
-            class="card-img-top image-product"
-            alt="{{ product.title }}"
+            value="{{ i }}"
+            (click)="add($event)"
+            src="../../../../assets/cart_icon-removebg-preview.png"
+            alt="cart"
           />
-          <div class="card-body">
-            <h5 class="card-title text-center" title="{{ product.title }}">
-              {{ product.title }}
-            </h5>
-            <p class="card-text text-center" title="{{ product.description }}">
-              {{ product.description }}
-            </p>
-            <p class="price text-center">{{ product.price | currency }}</p>
-          </div>
-          <div class="actions">
-            <button class="btn">
-              <img
-                src="../../../../assets/cart_icon-removebg-preview.png"
-                alt="cart"
-              />
-            </button>
-            <button class="btn">
-              <img
-                src="../../../../assets/favorite_icon-removebg-preview.png"
-                alt="favorite"
-              />
-            </button>
-          </div>
-        </div>
-      </a>
+        </button>
+        <button class="btn">
+          <img
+            value="{{ i }}"
+            (click)="add($event)"
+            src="../../../../assets/favorite_icon-removebg-preview.png"
+            alt="favorite"
+          />
+        </button>
+      </div>
+    </div>
     </div>
   </div>
 </main>
