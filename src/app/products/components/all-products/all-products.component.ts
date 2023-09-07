@@ -12,7 +12,9 @@ export class AllProductsComponent implements OnInit {
   products: ProductModel[] = [];
   categories: string[] = [];
   isLoading: boolean = false;
-  errorMsg: string = '';
+  PopupMessage: string = '';
+  cartProducts: ProductModel[];
+  favoriteProducts: ProductModel[];
 
   ngOnInit() {
     this.showProducts();
@@ -28,14 +30,14 @@ export class AllProductsComponent implements OnInit {
         this.isLoading = false;
       },
       (error) => {
-        this.errorMsg = this.productsService.handleFetchError(error);
+        this.PopupMessage = this.productsService.handleFetchError(error);
         this.isLoading = false;
       }
     );
   }
 
   receivedFromErrorComp(data: string) {
-    this.errorMsg = data;
+    this.PopupMessage = data;
   }
 
   getAllCategories() {
@@ -52,7 +54,7 @@ export class AllProductsComponent implements OnInit {
     let category: string = (<HTMLButtonElement>$event.target).innerHTML;
     // console.log(category);
     category = category.trim();
-    if (category === 'all') {``
+    if (category === 'all') {
       this.showProducts();
     } else {
       this.productsService.filterReq(category).subscribe(
@@ -63,15 +65,106 @@ export class AllProductsComponent implements OnInit {
         },
         (error) => {
           // console.log(error);
-          this.errorMsg = this.productsService.handleFetchError(error);
+          this.PopupMessage = this.productsService.handleFetchError(error);
           this.isLoading = false;
         }
       );
     }
   }
 
-  add($event: Event){
-    let id = parseInt((<HTMLButtonElement>$event.target).value);
-    console.log(id);
+  /** start search method: **/
+  search(event: Event) {
+    let searchInput = (<HTMLInputElement>event.target).value;
+    let searchResult: ProductModel[] = [];
+    if (searchInput === '') {
+      this.showProducts();
+    } else {
+      for (let item of this.products) {
+        if (item.title.toLowerCase().includes(searchInput.toLowerCase())) {
+          searchResult.push(item);
+        }
+      }
+      this.products = searchResult;
+    }
   }
+  /** end search method. **/
+
+  /** start of add products to cart and localestorage methods: **/
+  checkCart() {
+    let existed = JSON.parse(localStorage.getItem('cart'));
+    // console.log(existed);
+    if (!Array.isArray(existed)) {
+      this.cartProducts.push(existed);
+    } else {
+      this.cartProducts = existed;
+    }
+  }
+
+  addToCart(product: ProductModel) {
+    // console.log(product);
+    if ('cart' in localStorage) {
+      this.cartProducts = [];
+      this.checkCart();
+      let duplicated = this.cartProducts.find((item) => item.id === product.id);
+      if (duplicated) {
+        this.alreadyAdded();
+        return;
+      }
+      this.cartProducts.push(product);
+      // console.log(this.cartProducts);
+      let updatedCartProducts = JSON.stringify(this.cartProducts);
+      localStorage.setItem('cart', updatedCartProducts);
+      this.addedSuccessfullyMsg();
+    } else {
+      localStorage.setItem('cart', JSON.stringify(product));
+      this.addedSuccessfullyMsg();
+    }
+  }
+  /** end of add products to cart and localestorage methods. **/
+
+  alreadyAdded() {
+    let duplicatedMsg: string = 'Product already added!';
+    this.PopupMessage = duplicatedMsg;
+    // console.log(this.PopupMessage);
+  }
+
+  addedSuccessfullyMsg() {
+    let addedSuccess = 'Product added successfully.';
+    this.PopupMessage = addedSuccess;
+  }
+
+  /** start of add products to favorite and localestorage methods: **/
+  checkFavorite() {
+    let existed = JSON.parse(localStorage.getItem('favorite'));
+    // console.log(existed);
+    if (!Array.isArray(existed)) {
+      this.favoriteProducts.push(existed);
+    } else {
+      this.favoriteProducts = existed;
+    }
+  }
+
+  addToFavorite(product: ProductModel) {
+    // console.log(product);
+    if ('favorite' in localStorage) {
+      this.favoriteProducts = [];
+      this.checkFavorite();
+      let duplicated = this.favoriteProducts.find(
+        (item) => item.id === product.id
+      );
+      if (duplicated) {
+        this.alreadyAdded();
+        return;
+      }
+      this.favoriteProducts.push(product);
+      // console.log(this.favoriteProducts);
+      let updatedFavoriteProducts = JSON.stringify(this.favoriteProducts);
+      localStorage.setItem('favorite', updatedFavoriteProducts);
+      this.addedSuccessfullyMsg();
+    } else {
+      localStorage.setItem('favorite', JSON.stringify(product));
+      this.addedSuccessfullyMsg();
+    }
+  }
+  /** end of add products to favorite and localestorage methods: **/
 }

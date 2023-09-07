@@ -5,18 +5,20 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoadingComponent } from './components/loading/loading.component';
-import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { popupMessageComponent } from './components/popup-message/popup-message.component';
 import { ProductsFiltersComponent } from './components/products-filters/products-filters.component';
 import { ProductComponent } from './components/product/product.component';
+import { CartOrFavoriteEmptyComponent } from './components/cart-or-favorite-empty/cart-or-favorite-empty.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     LoadingComponent,
-    ErrorMessageComponent,
+    popupMessageComponent,
     ProductsFiltersComponent,
     ProductComponent,
+    CartOrFavoriteEmptyComponent,
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -25,9 +27,10 @@ import { ProductComponent } from './components/product/product.component';
     CommonModule,
     RouterModule,
     LoadingComponent,
-    ErrorMessageComponent,
+    popupMessageComponent,
     ProductsFiltersComponent,
-    ProductComponent
+    ProductComponent,
+    CartOrFavoriteEmptyComponent
   ],
 })
 export class SharedModule {}

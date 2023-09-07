@@ -1,0 +1,6 @@
+<div class="row" *ngIf="popupMessage" >
+  <div class="error text-light">
+    <p >{{popupMessage}}</p>
+    <div><button class="btn text-light" (click)="close()">X</button></div>
+  </div>
+</div>

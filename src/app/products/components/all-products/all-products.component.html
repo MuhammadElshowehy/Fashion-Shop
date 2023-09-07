@@ -1,9 +1,8 @@
 <app-loading *ngIf="isLoading"></app-loading>
-<app-error-message
-  *ngIf="errorMsg"
-  [errorMessage]="errorMsg"
-  (closeError)="receivedFromErrorComp($event)"
-></app-error-message>
+<app-popup-message
+  [popupMessage]="PopupMessage"
+  (closePopupMessage)="receivedFromErrorComp($event)"
+></app-popup-message>
 <!-- separate -->
 <main *ngIf="!isLoading">
   <div class="row">
@@ -16,6 +15,7 @@
           name="search"
           class="form-control"
           placeholder="search products"
+          (input)="search($event)"
         />
       </div>
     </div>
@@ -37,17 +37,19 @@
         <button class="btn">
           <img
             value="{{ i }}"
-            (click)="add($event)"
+            (click)="addToCart(product)"
             src="../../../../assets/cart_icon-removebg-preview.png"
             alt="cart"
+            loading="lazy"
           />
         </button>
         <button class="btn">
           <img
             value="{{ i }}"
-            (click)="add($event)"
+            (click)="addToFavorite(product)"
             src="../../../../assets/favorite_icon-removebg-preview.png"
             alt="favorite"
+            loading="lazy"
           />
         </button>
       </div>

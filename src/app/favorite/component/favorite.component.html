@@ -1,1 +1,27 @@
-<p>favorite works!</p>
+<div class="row">
+  <h1>Your amazing favorite</h1>
+  <hr>
+</div>
+<div>
+  <app-cart-or-favorite-empty
+    *ngIf="isEmpty"
+    [titlePage]="favorite"
+  ></app-cart-or-favorite-empty>
+</div>
+<div class="row" *ngIf="favoriteProduct">
+  <div class="col-sm-6 col-md-6 col-xl-3 col-lg-4">
+    <div class="product">
+      <app-product [productComp]="favoriteProduct"></app-product>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="favoriteProducts">
+  <div
+    class="col-sm-6 col-md-6 col-xl-3 col-lg-4"
+    *ngFor="let product of favoriteProducts; let i = index"
+  >
+    <div class="product">
+      <app-product [productComp]="product"></app-product>
+    </div>
+  </div>
+</div>

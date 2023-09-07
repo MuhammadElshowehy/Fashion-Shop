@@ -1,0 +1,33 @@
+.error {
+  width: 35%;
+  height: 10%;
+  position: fixed;
+  z-index: 11;
+  right: 0;
+  top: 25%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 0 0 8px;
+  padding: 0 0 0 10px;
+  background-color: var(--orange);
+  box-shadow: 0 4px 15px var(--darkPurple);
+}
+p{
+  text-align: center;
+  margin: 0;
+}
+button {
+  background-color: var(--purple);
+  border-radius: 0;
+  width: 50px;
+  min-height: 60px;
+}
+button:hover {
+  background-color: var(--orange);
+}
+@media (max-width: 768px) {
+  .error{
+    width: 50%;
+  }
+}
