@@ -1,27 +1,38 @@
 <div class="row">
   <h1>Your wonderful favorite list</h1>
-  <hr>
+  <hr />
 </div>
-<div>
-  <app-cart-or-favorite-empty
-    *ngIf="isEmpty"
-    [titlePage]="favorite"
-  ></app-cart-or-favorite-empty>
-</div>
-<div class="row" *ngIf="favoriteProduct">
-  <div class="col-sm-6 col-md-6 col-xl-3 col-lg-4">
-    <div class="product">
-      <app-product [productComp]="favoriteProduct"></app-product>
-    </div>
-  </div>
-</div>
-<div class="row" *ngIf="favoriteProducts">
-  <div
-    class="col-sm-6 col-md-6 col-xl-3 col-lg-4"
-    *ngFor="let product of favoriteProducts; let i = index"
-  >
-    <div class="product">
+<!-- separate -->
+<app-popup-message
+  [popupMessage]="PopupMessage"
+  (closePopupMessage)="receivedFromPopup($event)"
+></app-popup-message>
+<!-- separate -->
+<app-cart-or-favorite-empty
+  *ngIf="isEmpty"
+  [titlePage]="favorite"
+></app-cart-or-favorite-empty>
+<main>
+  <div class="row" *ngIf="favoriteProducts">
+    <div
+      class="col-sm-6 col-md-6 col-xl-3 col-lg-4"
+      *ngFor="let product of favoriteProducts; let i = index"
+    >
       <app-product [productComp]="product"></app-product>
+      <button
+        type="button"
+        class="btn w-100 p-2 text-light"
+        (click)="remove(i)"
+      >
+        Remove from favorites
+      </button>
+      <button
+        type="button"
+        class="btn w-100 p-2 text-light"
+        (click)="addToCart(product)"
+      >
+        Add to cart
+      </button>
     </div>
   </div>
-</div>
+</main>

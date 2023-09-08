@@ -1,0 +1,9 @@
+@media (max-width: 576px) {
+  main {
+    max-width: 360px;
+  }
+  main {
+    justify-content: center;
+    margin: auto;
+  }
+}

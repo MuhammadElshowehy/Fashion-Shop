@@ -93,7 +93,7 @@ export class AllProductsComponent implements OnInit {
   checkCart() {
     let existed = JSON.parse(localStorage.getItem('cart'));
     // console.log(existed);
-    if (!Array.isArray(existed)) {
+    if (!existed.length) {
       this.cartProducts.push(existed);
     } else {
       this.cartProducts = existed;
@@ -112,8 +112,7 @@ export class AllProductsComponent implements OnInit {
       }
       this.cartProducts.push(product);
       // console.log(this.cartProducts);
-      let updatedCartProducts = JSON.stringify(this.cartProducts);
-      localStorage.setItem('cart', updatedCartProducts);
+      localStorage.setItem('cart', JSON.stringify(this.cartProducts));
       this.addedSuccessfullyMsg();
     } else {
       localStorage.setItem('cart', JSON.stringify(product));
@@ -125,7 +124,6 @@ export class AllProductsComponent implements OnInit {
   alreadyAdded() {
     let duplicatedMsg: string = 'Product already added!';
     this.PopupMessage = duplicatedMsg;
-    // console.log(this.PopupMessage);
   }
 
   addedSuccessfullyMsg() {
@@ -137,7 +135,7 @@ export class AllProductsComponent implements OnInit {
   checkFavorite() {
     let existed = JSON.parse(localStorage.getItem('favorite'));
     // console.log(existed);
-    if (!Array.isArray(existed)) {
+    if (!existed.length) {
       this.favoriteProducts.push(existed);
     } else {
       this.favoriteProducts = existed;
@@ -158,8 +156,7 @@ export class AllProductsComponent implements OnInit {
       }
       this.favoriteProducts.push(product);
       // console.log(this.favoriteProducts);
-      let updatedFavoriteProducts = JSON.stringify(this.favoriteProducts);
-      localStorage.setItem('favorite', updatedFavoriteProducts);
+      localStorage.setItem('favorite', JSON.stringify(this.favoriteProducts));
       this.addedSuccessfullyMsg();
     } else {
       localStorage.setItem('favorite', JSON.stringify(product));
