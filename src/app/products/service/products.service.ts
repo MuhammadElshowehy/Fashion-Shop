@@ -37,4 +37,9 @@ export class ProductsService {
     // console.log(apiLink);
     return this.http.get(apiLink);
   }
+
+  productDetails(id: number){
+    let apiLink = environment.baseAPI + 'products/' + id;
+    return this.http.get(apiLink);
+  }
 }

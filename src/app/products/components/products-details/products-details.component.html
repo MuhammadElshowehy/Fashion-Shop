@@ -1,1 +1,25 @@
-<p>products-details works!</p>
+<h1>product details</h1>
+<hr>
+<app-loading *ngIf="isLoading"></app-loading>
+<!-- separate -->
+<app-popup-message
+  [popupMessage]="PopupMessage"
+  (closePopupMessage)="receivedFromPopupComp($event)"
+></app-popup-message>
+<!-- separate -->
+<section *ngIf="productDetails">
+  <div class="image">
+    <img
+      src="{{ productDetails.image }}"
+      alt="{{ productDetails.title }}"
+      loading="lazy"
+    />
+  </div>
+  <div class="text">
+    <h3><span>Title:</span> {{ productDetails.title }}</h3>
+    <p><span>Description:</span> {{ productDetails.description }}</p>
+    <p><span>Category:</span> {{ productDetails.category }}</p>
+    <p><span>Price:</span> {{ productDetails.price | currency }}</p>
+    <p><span>Rating:</span> {{ rate }} &starf;</p>
+  </div>
+</section>

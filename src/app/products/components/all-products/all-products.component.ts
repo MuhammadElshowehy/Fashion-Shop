@@ -36,7 +36,7 @@ export class AllProductsComponent implements OnInit {
     );
   }
 
-  receivedFromErrorComp(data: string) {
+  receivedFromPopupComp(data: string) {
     this.PopupMessage = data;
   }
 

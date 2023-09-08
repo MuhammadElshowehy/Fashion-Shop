@@ -1,0 +1,35 @@
+section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+section .image,
+section .text {
+  width: 40%;
+}
+@media (max-width: 576px) {
+  section {
+    flex-direction: column;
+  }
+  section .image,
+  section .text {
+    width: 80%;
+  }
+}
+section .image img {
+  max-width: 100%;
+}
+section .text h3,
+section .text p {
+  margin: 15px 0;
+}
+h3{
+  color: var(--purple);
+}
+span {
+  color: var(--orange);
+}
+h3 span,
+p:first-of-type span{
+  display: block;
+}
