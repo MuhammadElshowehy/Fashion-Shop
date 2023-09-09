@@ -7,7 +7,7 @@ section .image,
 section .text {
   width: 40%;
 }
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   section {
     flex-direction: column;
   }

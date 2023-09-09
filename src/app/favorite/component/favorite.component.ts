@@ -46,6 +46,12 @@ export class FavoriteComponent implements OnInit {
     }
   }
 
+  removeAll(){
+    localStorage.removeItem('favorite');
+    this.favoriteProducts = [];
+    this.isEmpty = true;
+  }
+
   isDuplicated(arr: ProductModel[], product: ProductModel) {
     let duplicated = arr.find((item) => item.id === product.id);
     if (duplicated) {

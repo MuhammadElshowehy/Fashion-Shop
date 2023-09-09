@@ -10,14 +10,16 @@ import { FavoriteComponent } from './favorite/component/favorite.component';
 import { UserComponent } from './user/component/user.component';
 import { SignUpComponent } from './auth/components/sign-up/sign-up.component';
 import { SignInComponent } from './auth/components/sign-in/sign-in.component';
+import { CheckoutComponent } from './checkout/components/checkout/checkout.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'products', component: AllProductsComponent},
   {path: 'details/:id', component: ProductsDetailsComponent},
   {path: 'cart', component: CartComponent},
   {path: 'favorite', component: FavoriteComponent},
+  {path: 'checkout', component: CheckoutComponent},
   {path: 'user', component: UserComponent},
   {path: 'signup', component: SignUpComponent},
   {path: 'signin', component: SignInComponent},

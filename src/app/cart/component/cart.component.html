@@ -1,29 +1,61 @@
-<div class="row">
+<div class="top">
   <h1>Your wonderful cart list</h1>
-  <hr>
-</div>
-<div class="row">
-  <app-cart-or-favorite-empty
-    *ngIf="isEmpty"
-    [titlePage]="cart"
-  ></app-cart-or-favorite-empty>
-</div>
-<main>
-  <div class="row" *ngIf="cartProduct">
-    <div class="col-sm-6 col-md-6 col-xl-3 col-lg-4">
-      <div class="product">
-        <app-product [productComp]="cartProduct"></app-product>
-      </div>
-    </div>
+  <div class="remove-all" *ngIf="!isEmpty">
+    <button class="btn text-light" type="button" (click)="removeAll()">
+      Remove all products
+    </button>
   </div>
+</div>
+<hr />
+<!-- separate -->
+<app-popup-message
+  [popupMessage]="popupMessage"
+  (closePopupMessage)="receivedFromPopup($event)"
+></app-popup-message>
+<!-- separate -->
+<app-cart-or-favorite-empty
+  *ngIf="isEmpty"
+  [titlePage]="cart"
+></app-cart-or-favorite-empty>
+<main>
   <div class="row" *ngIf="cartProducts">
     <div
       class="col-sm-6 col-md-6 col-xl-3 col-lg-4"
       *ngFor="let product of cartProducts; let i = index"
     >
-      <div class="product">
-        <app-product [productComp]="product"></app-product>
+      <app-product [productComp]="product"></app-product>
+      <div class="form-group m-1">
+        <label for="quantity">Quantity:</label>
+        <input
+          id="quantity"
+          class="form-control"
+          type="number"
+          value="{{ product.quantity }}"
+          min="1"
+          (input)="calcQuantity(product, $event)"
+        />
       </div>
+      <button
+        type="button"
+        class="btn w-100 p-2 text-light"
+        (click)="remove(i)"
+      >
+        Remove from cart
+      </button>
     </div>
   </div>
 </main>
+<hr />
+<div class="proceed" *ngIf="totalPrice">
+  <button class="btn" type="button" disabled *ngIf="validQuantity">
+    Your total price is: <span>{{ totalPrice | currency }}</span>
+  </button>
+  <button
+    class="btn text-light"
+    type="button"
+    (click)="goToCheckOut()"
+    [disabled]="!validQuantity"
+  >
+    Proceed to checkout &rarr;
+  </button>
+</div>

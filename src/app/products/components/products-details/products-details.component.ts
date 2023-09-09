@@ -16,7 +16,6 @@ export class ProductsDetailsComponent implements OnInit {
   isLoading: boolean = false;
   productId: number;
   productDetails: any;
-  rate: number;
   PopupMessage: string = '';
 
   ngOnInit() {
@@ -27,7 +26,6 @@ export class ProductsDetailsComponent implements OnInit {
     this.productsService.productDetails(this.productId).subscribe(
       (res: ProductModel) => {
         this.productDetails = res;
-        this.rate = this.productDetails.rating.rate;
         this.isLoading = false;
       },
       (error) => {

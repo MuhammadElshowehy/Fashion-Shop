@@ -4,6 +4,7 @@ export class ProductModel {
   public id: number;
   public image: string;
   public price: number;
+  public quantity?: number;
   public rating: object;
   public title: string;
   constructor(
@@ -12,6 +13,7 @@ export class ProductModel {
     id: number,
     image: string,
     price: number,
+    quantity: number,
     rating: object,
     title: string
   ) {
@@ -20,6 +22,7 @@ export class ProductModel {
     this.id = id;
     this.image = image;
     this.price = price;
+    this.quantity = quantity;
     this.rating = rating;
     this.title = title;
   }

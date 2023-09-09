@@ -1,7 +1,12 @@
-<div class="row">
+<div class="top">
   <h1>Your wonderful favorite list</h1>
-  <hr />
+  <div class="remove-all" *ngIf="!isEmpty">
+    <button class="btn text-light" type="button" (click)="removeAll()">
+      Remove all products
+    </button>
+  </div>
 </div>
+<hr />
 <!-- separate -->
 <app-popup-message
   [popupMessage]="PopupMessage"

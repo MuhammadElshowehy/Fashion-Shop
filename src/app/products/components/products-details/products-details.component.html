@@ -1,5 +1,5 @@
 <h1>product details</h1>
-<hr>
+<hr />
 <app-loading *ngIf="isLoading"></app-loading>
 <!-- separate -->
 <app-popup-message
@@ -20,6 +20,9 @@
     <p><span>Description:</span> {{ productDetails.description }}</p>
     <p><span>Category:</span> {{ productDetails.category }}</p>
     <p><span>Price:</span> {{ productDetails.price | currency }}</p>
-    <p><span>Rating:</span> {{ rate }} &starf;</p>
+    <p>
+      <span>Rating:</span> {{ productDetails.rating.rate }} &starf; - rating
+      count: {{ productDetails.rating.count }}
+    </p>
   </div>
 </section>

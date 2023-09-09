@@ -36,10 +36,6 @@ export class AllProductsComponent implements OnInit {
     );
   }
 
-  receivedFromPopupComp(data: string) {
-    this.PopupMessage = data;
-  }
-
   getAllCategories() {
     this.productsService.getAllCategories().subscribe((res: string[]) => {
       // console.log(res);
@@ -47,6 +43,10 @@ export class AllProductsComponent implements OnInit {
       this.categories = res;
       // console.log(this.categories);
     });
+  }
+
+  receivedFromPopupComp(data: string) {
+    this.PopupMessage = data;
   }
 
   filterBy($event: Event) {
