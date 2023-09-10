@@ -1,0 +1,94 @@
+.row:first-of-type {
+  row-gap: 20px;
+  border: 1px solid var(--darkPurple);
+}
+@media (max-width: 576px) {
+  .row:first-of-type {
+    border: none;
+  }
+}
+.row:last-of-type {
+  padding: 20px 0;
+}
+@media (min-width: 768px) {
+  .products {
+    border-right: 1px solid var(--darkPurple);
+  }
+}
+.products,
+.payment {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.products div {
+  opacity: 0.5;
+  user-select: none;
+}
+h2 {
+  margin: 10px auto;
+  color: var(--darkPurple);
+  font-size: 1.25rem;
+}
+.product li {
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 10px;
+  align-items: center;
+  padding: 5px 0;
+  margin-bottom: 10px;
+}
+.product .image img {
+  width: 50px;
+  height: 50px;
+}
+.product .text p,
+.product .text h4 {
+  margin: 0;
+  max-height: 22px;
+  overflow: hidden;
+}
+span {
+  color: var(--purple);
+}
+/* payment form */
+.forms {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 24px;
+}
+form caption {
+  display: block;
+  text-align: center;
+}
+form {
+  width: 50%;
+}
+@media (max-width: 992px) {
+  .forms {
+    flex-direction: column;
+  }
+  form {
+    width: 100%;
+  }
+}
+label,
+h2 {
+  text-transform: capitalize;
+  color: var(--purple);
+}
+h2 {
+  color: var(--darkPurple);
+}
+input {
+  border: 1px solid var(--darkPurple);
+}
+button.w-100 {
+  color: var(--white);
+  background-color: var(--purple);
+  font-size: 1.25rem;
+}
+button.w-100:hover {
+  background-color: var(--darkPurple);
+}

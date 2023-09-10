@@ -10,7 +10,7 @@ import { FavoriteComponent } from './favorite/component/favorite.component';
 import { UserComponent } from './user/component/user.component';
 import { SignUpComponent } from './auth/components/sign-up/sign-up.component';
 import { SignInComponent } from './auth/components/sign-in/sign-in.component';
-import { CheckoutComponent } from './checkout/components/checkout/checkout.component';
+import { CheckoutComponent } from './checkout/component/checkout/checkout.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},

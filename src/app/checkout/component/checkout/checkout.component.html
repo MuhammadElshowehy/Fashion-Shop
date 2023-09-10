@@ -1,0 +1,89 @@
+<h1>Checkout</h1>
+<!-- separate -->
+<div class="row">
+  <section class="products col-sm-12 col-md-4">
+    <h2>Your cart</h2>
+    <hr />
+    <div>
+      <ul class="product" *ngFor="let item of products">
+        <li>
+          <div class="image">
+            <img src="{{ item.image }}" alt="{{ item.title }}" />
+          </div>
+          <div class="text">
+            <h4><span>Title</span> {{ item.title }}</h4>
+            <p><span>Price: </span>{{ item.price }}</p>
+            <p><span>Quantity: </span>{{ item.quantity }}</p>
+          </div>
+        </li>
+      </ul>
+      <p>
+        <span>Total price: </span>{{ totalPriceWithoutShipping | currency }}
+      </p>
+    </div>
+  </section>
+  <section class="payment col-sm-12 col-md-8">
+    <div class="forms">
+      <form>
+        <caption>
+          <h2>credit card info</h2>
+        </caption>
+        <div class="form-group">
+          <label for="card-name" class="form-label">name on card</label>
+          <input type="text" id="card-name" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="card-number" class="form-label">card number</label>
+          <input
+            type="number"
+            id="card-number"
+            class="form-control"
+            placeholder="1234 1234 1234 1234"
+          />
+        </div>
+        <div class="form-group">
+          <label for="cvv-number" class="form-label">cvv number</label>
+          <input type="number" id="cvv-number" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="exp-date" class="form-label">exp-date</label>
+          <input type="date" id="exp-date" class="form-control" />
+        </div>
+      </form>
+      <form>
+        <caption>
+          <h2>billing info</h2>
+        </caption>
+        <div class="form-group">
+          <label for="full-name" class="form-label">full name</label>
+          <input type="text" id="full-name" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="address" class="form-label">address</label>
+          <input type="text" id="address" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="city" class="form-label">city</label>
+          <input type="text" id="city" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="phone" class="form-label">phone</label>
+          <input type="tel" id="phone" class="form-control" />
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+<!-- separate -->
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-12">
+    <p><span>Shipping cost: </span>$9.99</p>
+    <p><span>Total to pay: </span>{{ totalToPay | currency }}</p>
+  </div>
+  <div class="col-lg-4 col-md-8 col-sm-12">
+    <p><span>Arrive date: </span>{{ date }} between 9 AM to 9 PM.</p>
+  </div>
+  <div class="col-lg-4 col-md-8 col-sm-12 m-auto">
+    <button class="btn w-100">Place order</button>
+  </div>
+</div>

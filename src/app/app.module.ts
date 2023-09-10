@@ -13,6 +13,7 @@ import { ProductsModule } from './products/products.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthModule } from './auth/auth.module';
+import { CheckoutModule } from './checkout/checkout.module';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -26,7 +27,8 @@ import { AuthModule } from './auth/auth.module';
     HomeModule,
     UserModule,
     ProductsModule,
-    AuthModule
+    AuthModule,
+    CheckoutModule
   ],
   providers: [],
   bootstrap: [AppComponent],
