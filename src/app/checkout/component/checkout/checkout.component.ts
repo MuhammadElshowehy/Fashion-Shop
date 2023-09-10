@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductModel } from 'src/app/product-model';
+import { CheckoutService } from '../../service/checkout.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -7,32 +10,84 @@ import { ProductModel } from 'src/app/product-model';
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
+  constructor(
+    private checkoutService: CheckoutService,
+    private router: Router
+  ) {}
+
   products: ProductModel[] = [];
   totalPriceWithoutShipping: number;
-  shipping: number = 9.99;
   totalToPay: number;
-  date: string;
+  arriveDate: string;
+  // separate //
+
+  creditCardForm: FormGroup;
+  billingInfoForm: FormGroup;
+  popupMessage: string = '';
+  isLoading: boolean = false;
 
   ngOnInit() {
-    this.products = JSON.parse(localStorage.getItem('cart'));
-    this.totalPrice();
-    this.arriveDate();
+    this.products = this.checkoutService.getProducts();
+    this.totalPriceWithoutShipping =
+      this.checkoutService.totalWithoutShipping();
+    this.totalToPay = this.checkoutService.totalWithShipping();
+    this.arriveDate = this.checkoutService.arriveDate();
+    // separate //
+
+    this.creditCardForm = new FormGroup({
+      nameOnCard: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(11),
+      ]),
+      cardNumber: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^\d{16}$/),
+      ]),
+      cvvNumber: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^\d{3}$/),
+      ]),
+      expDate: new FormControl(null, [Validators.required]),
+    });
+
+    this.billingInfoForm = new FormGroup({
+      fullName: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(11),
+      ]),
+      streetAddress: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
+      city: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      phone: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^(?:\+20|0)?1\d{9}$/),
+      ]),
+    });
   }
 
-  totalPrice() {
-    let total: number = 0;
-    for (let product of this.products) {
-      total += product.price * product.quantity;
+  receivedFromPopup(event: string) {
+    this.popupMessage = event;
+  }
+
+  placeOrderClicked() {
+    if (this.creditCardForm.valid && this.billingInfoForm.valid) {
+      this.isLoading = true;
+      setTimeout(() => {
+        let complete: string = 'Order placed successfully';
+        this.popupMessage = complete;
+        this.creditCardForm.reset();
+        this.billingInfoForm.reset();
+      }, 2000);
+      // separate //
+      setTimeout(() => {
+        this.router.navigate(['/home']);
+        this.isLoading = false;
+      }, 4000);
     }
-    this.totalPriceWithoutShipping = total;
-    total += this.shipping;
-    this.totalToPay = total;
-  }
-
-  arriveDate() {
-    let arriveDate = new Date();
-    let numberOfDaysToAdd = 2;
-    let result = arriveDate.setDate(arriveDate.getDate() + numberOfDaysToAdd);
-    this.date = new Date(result).toLocaleDateString();
   }
 }

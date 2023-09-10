@@ -48,7 +48,9 @@ h2 {
   max-height: 22px;
   overflow: hidden;
 }
-span {
+.products h4 span,
+.products p span,
+.row:last-of-type p span {
   color: var(--purple);
 }
 /* payment form */

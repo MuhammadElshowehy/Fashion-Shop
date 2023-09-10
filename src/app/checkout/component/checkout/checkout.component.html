@@ -1,3 +1,10 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<!-- separate -->
+<app-popup-message
+  [popupMessage]="popupMessage"
+  (closePopupMessage)="receivedFromPopup($event)"
+></app-popup-message>
+<!-- separate -->
 <h1>Checkout</h1>
 <!-- separate -->
 <div class="row">
@@ -24,13 +31,25 @@
   </section>
   <section class="payment col-sm-12 col-md-8">
     <div class="forms">
-      <form>
+      <form [formGroup]="creditCardForm" (ngSubmit)="placeOrderClicked()">
         <caption>
           <h2>credit card info</h2>
         </caption>
         <div class="form-group">
           <label for="card-name" class="form-label">name on card</label>
-          <input type="text" id="card-name" class="form-control" />
+          <input
+            type="text"
+            id="card-name"
+            class="form-control"
+            [formControlName]="'nameOnCard'"
+          />
+          <span
+            *ngIf="
+              creditCardForm.get('nameOnCard').invalid &&
+              creditCardForm.get('nameOnCard').touched
+            "
+            >Please enter name on card!</span
+          >
         </div>
         <div class="form-group">
           <label for="card-number" class="form-label">card number</label>
@@ -39,36 +58,118 @@
             id="card-number"
             class="form-control"
             placeholder="1234 1234 1234 1234"
+            [formControlName]="'cardNumber'"
           />
+          <span
+            *ngIf="
+              creditCardForm.get('cardNumber').invalid &&
+              creditCardForm.get('cardNumber').touched
+            "
+            >Please enter the 16-digit number!</span
+          >
         </div>
         <div class="form-group">
           <label for="cvv-number" class="form-label">cvv number</label>
-          <input type="number" id="cvv-number" class="form-control" />
+          <input
+            type="number"
+            id="cvv-number"
+            class="form-control"
+            placeholder="123"
+            [formControlName]="'cvvNumber'"
+          />
+          <span
+            *ngIf="
+              creditCardForm.get('cvvNumber').invalid &&
+              creditCardForm.get('cvvNumber').touched
+            "
+            >Please enter the 3-digit number!</span
+          >
         </div>
         <div class="form-group">
           <label for="exp-date" class="form-label">exp-date</label>
-          <input type="date" id="exp-date" class="form-control" />
+          <input
+            type="date"
+            id="exp-date"
+            class="form-control"
+            [formControlName]="'expDate'"
+          />
+          <span
+            *ngIf="
+              creditCardForm.get('expDate').invalid &&
+              creditCardForm.get('expDate').touched
+            "
+            >Please enter expire date!</span
+          >
         </div>
       </form>
-      <form>
+      <form [formGroup]="billingInfoForm" (ngSubmit)="placeOrderClicked()">
         <caption>
           <h2>billing info</h2>
         </caption>
         <div class="form-group">
           <label for="full-name" class="form-label">full name</label>
-          <input type="text" id="full-name" class="form-control" />
+          <input
+            type="text"
+            id="full-name"
+            class="form-control"
+            [formControlName]="'fullName'"
+          />
+          <span
+            *ngIf="
+              billingInfoForm.get('fullName').invalid &&
+              billingInfoForm.get('fullName').touched
+            "
+            >Please enter your full name!</span
+          >
         </div>
         <div class="form-group">
-          <label for="address" class="form-label">address</label>
-          <input type="text" id="address" class="form-control" />
+          <label for="street-address" class="form-label">street address</label>
+          <input
+            type="text"
+            id="street-address"
+            class="form-control"
+            [formControlName]="'streetAddress'"
+          />
+          <span
+            *ngIf="
+              billingInfoForm.get('streetAddress').invalid &&
+              billingInfoForm.get('streetAddress').touched
+            "
+            >Please enter your street address!</span
+          >
         </div>
         <div class="form-group">
           <label for="city" class="form-label">city</label>
-          <input type="text" id="city" class="form-control" />
+          <input
+            type="text"
+            id="city"
+            class="form-control"
+            [formControlName]="'city'"
+          />
+          <span
+            *ngIf="
+              billingInfoForm.get('city').invalid &&
+              billingInfoForm.get('city').touched
+            "
+            >Please enter your city name!</span
+          >
         </div>
         <div class="form-group">
           <label for="phone" class="form-label">phone</label>
-          <input type="tel" id="phone" class="form-control" />
+          <input
+            type="number"
+            id="phone"
+            class="form-control"
+            placeholder="ex: 01012345678 | 1012345678"
+            [formControlName]="'phone'"
+          />
+          <span
+            *ngIf="
+              billingInfoForm.get('phone').invalid &&
+              billingInfoForm.get('phone').touched
+            "
+            >Please enter a correct phone number!</span
+          >
         </div>
       </form>
     </div>
@@ -81,9 +182,16 @@
     <p><span>Total to pay: </span>{{ totalToPay | currency }}</p>
   </div>
   <div class="col-lg-4 col-md-8 col-sm-12">
-    <p><span>Arrive date: </span>{{ date }} between 9 AM to 9 PM.</p>
+    <p><span>Arrive date: </span>{{ arriveDate }} between 9 AM to 9 PM.</p>
   </div>
   <div class="col-lg-4 col-md-8 col-sm-12 m-auto">
-    <button class="btn w-100">Place order</button>
+    <button
+      class="btn w-100"
+      type="submit"
+      [disabled]="creditCardForm.invalid || billingInfoForm.invalid"
+      (click)="placeOrderClicked()"
+    >
+      Place order
+    </button>
   </div>
 </div>

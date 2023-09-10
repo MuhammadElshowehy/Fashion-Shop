@@ -33,6 +33,14 @@ button:active,
 button:focus{
   box-shadow: 0 0 0 0.25rem rgba(89, 14, 42, 0.5) !important;
 }
+/* start style form inputs when validation */
+input.ng-touched.ng-invalid {
+  box-shadow: 0 0 0 0.25rem crimson !important;
+}
+.form-group span {
+  color: crimson;
+}
+/* end style form inputs when validation */
 h1{
   color: var(--darkPurple);
   font-size: 2rem;
