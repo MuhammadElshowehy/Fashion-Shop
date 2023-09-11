@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ErrorMessageComponent } from './popup-message.component';
+import { popupMessageComponent } from './popup-message.component';
 
 describe('ErrorMessageComponent', () => {
-  let component: ErrorMessageComponent;
-  let fixture: ComponentFixture<ErrorMessageComponent>;
+  let component: popupMessageComponent;
+  let fixture: ComponentFixture<popupMessageComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ErrorMessageComponent]
+      declarations: [popupMessageComponent]
     });
-    fixture = TestBed.createComponent(ErrorMessageComponent);
+    fixture = TestBed.createComponent(popupMessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

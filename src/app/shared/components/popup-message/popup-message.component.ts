@@ -9,9 +9,18 @@ import { Subject } from 'rxjs';
 export class popupMessageComponent implements OnChanges {
   @Input() popupMessage: string;
   @Output() closePopupMessage = new Subject<string>();
+  isAlert: boolean;
 
   ngOnChanges() {
     if (this.popupMessage) {
+      let lastChar: string = this.popupMessage.substring(
+        this.popupMessage.length - 1
+      );
+      if (lastChar === '!') {
+        this.isAlert = true;
+      } else {
+        this.isAlert = false;
+      }
       setTimeout(() => {
         this.close();
       }, 3000);

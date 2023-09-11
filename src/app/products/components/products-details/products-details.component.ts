@@ -13,13 +13,13 @@ export class ProductsDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private productsService: ProductsService
   ) {}
-  isLoading: boolean = false;
+
+  isLoading: boolean = true;
   productId: number;
   productDetails: any;
   PopupMessage: string = '';
 
   ngOnInit() {
-    this.isLoading = true;
     this.route.params.subscribe((params) => {
       this.productId = +params.id;
     });

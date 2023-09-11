@@ -8,14 +8,14 @@ import { ProductModel } from 'src/app/product-model';
 })
 export class FavoriteComponent implements OnInit {
   favoriteProducts: ProductModel[] = [];
-  isEmpty: boolean = true;
+  isEmpty: boolean = false;
+  isLoading: boolean = true;
   favorite: string = 'Favorite';
   PopupMessage: string = '';
 
   ngOnInit() {
     let existed = JSON.parse(localStorage.getItem('favorite'));
     if (existed) {
-      this.isEmpty = false;
       if (!existed.length) {
         // condition means: existed contain single product:object.
         this.favoriteProducts.push(existed);
@@ -23,6 +23,10 @@ export class FavoriteComponent implements OnInit {
         // condition means: existed contain array of products:[].
         this.favoriteProducts = existed;
       }
+      this.isLoading = false;
+    } else {
+      this.isLoading = false;
+      this.isEmpty = true;
     }
   }
 
@@ -30,26 +34,34 @@ export class FavoriteComponent implements OnInit {
     this.PopupMessage = $event;
   }
 
-  removedSuccessfully(){
+  removedSuccessfully() {
     let removedMsg: string = 'Product removed successfully';
     this.PopupMessage = removedMsg;
   }
 
   remove(index: number) {
-    this.favoriteProducts.splice(index, 1);
-    this.removedSuccessfully();
-    if (this.favoriteProducts.length >= 1) {
-      localStorage.setItem('favorite', JSON.stringify(this.favoriteProducts));
-    } else {
-      localStorage.removeItem('favorite');
-      this.isEmpty = true;
-    }
+    this.isLoading = true;
+    setTimeout(() => {
+      this.favoriteProducts.splice(index, 1);
+      this.removedSuccessfully();
+      if (this.favoriteProducts.length >= 1) {
+        localStorage.setItem('favorite', JSON.stringify(this.favoriteProducts));
+      } else {
+        localStorage.removeItem('favorite');
+        this.isEmpty = true;
+      }
+      this.isLoading = false;
+    }, 1000);
   }
 
-  removeAll(){
-    localStorage.removeItem('favorite');
-    this.favoriteProducts = [];
-    this.isEmpty = true;
+  removeAll() {
+    this.isLoading = true;
+    setTimeout(() => {
+      localStorage.removeItem('favorite');
+      this.favoriteProducts = [];
+      this.isEmpty = true;
+      this.isLoading = false;
+    }, 1000);
   }
 
   isDuplicated(arr: ProductModel[], product: ProductModel) {
@@ -72,32 +84,40 @@ export class FavoriteComponent implements OnInit {
   }
 
   addToCart(product: ProductModel) {
-    if (localStorage.getItem('cart')) {
-      let cartInLocale = JSON.parse(localStorage.getItem('cart'));
-      if (cartInLocale.length) {
-        if (this.isDuplicated(cartInLocale, product)) {
-          this.alreadyAdded();
-          return;
+    this.isLoading = true;
+    setTimeout(() => {
+      if (localStorage.getItem('cart')) {
+        let cartInLocale = JSON.parse(localStorage.getItem('cart'));
+        if (cartInLocale.length) {
+          if (this.isDuplicated(cartInLocale, product)) {
+            this.isLoading = false;
+            this.alreadyAdded();
+            return;
+          } else {
+            cartInLocale.push(product);
+            localStorage.setItem('cart', JSON.stringify(cartInLocale));
+            this.isLoading = false;
+            this.addedSuccessfully();
+          }
         } else {
-          cartInLocale.push(product);
-          localStorage.setItem('cart', JSON.stringify(cartInLocale));
-          this.addedSuccessfully();
+          let singleProduct: ProductModel[] = [];
+          singleProduct.push(cartInLocale);
+          if (this.isDuplicated(singleProduct, product)) {
+            this.isLoading = false;
+            this.alreadyAdded();
+            return;
+          } else {
+            singleProduct.push(product);
+            localStorage.setItem('cart', JSON.stringify(singleProduct));
+            this.isLoading = false;
+            this.addedSuccessfully();
+          }
         }
       } else {
-        let singleProduct: ProductModel[] = [];
-        singleProduct.push(cartInLocale);
-        if (this.isDuplicated(singleProduct, product)) {
-          this.alreadyAdded();
-          return;
-        } else {
-          singleProduct.push(product);
-          localStorage.setItem('cart', JSON.stringify(singleProduct));
-          this.addedSuccessfully();
-        }
+        localStorage.setItem('cart', JSON.stringify(product));
+        this.isLoading = false;
+        this.addedSuccessfully();
       }
-    } else {
-      localStorage.setItem('cart', JSON.stringify(product));
-      this.addedSuccessfully();
-    }
+    }, 1000);
   }
 }

@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
   templateUrl: './products-filters.component.html',
   styleUrls: ['./products-filters.component.css']
 })
-export class ProductsFiltersComponent {
+export class ProductsFiltersComponent  {
   @Input() categories: string[] = [];
   @Output() selectedFilter = new Subject<Event>();
 

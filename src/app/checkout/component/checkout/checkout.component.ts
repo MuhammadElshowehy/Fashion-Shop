@@ -24,16 +24,18 @@ export class CheckoutComponent implements OnInit {
   creditCardForm: FormGroup;
   billingInfoForm: FormGroup;
   popupMessage: string = '';
-  isLoading: boolean = false;
+  isLoading: boolean = true;
 
   ngOnInit() {
-    this.products = this.checkoutService.getProducts();
-    this.totalPriceWithoutShipping =
-      this.checkoutService.totalWithoutShipping();
-    this.totalToPay = this.checkoutService.totalWithShipping();
-    this.arriveDate = this.checkoutService.arriveDate();
+    setTimeout(() => {
+      this.products = this.checkoutService.getProducts();
+      this.totalPriceWithoutShipping =
+        this.checkoutService.totalWithoutShipping();
+      this.totalToPay = this.checkoutService.totalWithShipping();
+      this.arriveDate = this.checkoutService.arriveDate();
+      this.isLoading = false;
+    }, 1000);
     // separate //
-
     this.creditCardForm = new FormGroup({
       nameOnCard: new FormControl(null, [
         Validators.required,
@@ -82,12 +84,12 @@ export class CheckoutComponent implements OnInit {
         this.popupMessage = complete;
         this.creditCardForm.reset();
         this.billingInfoForm.reset();
-      }, 2000);
+      }, 1500);
       // separate //
       setTimeout(() => {
         this.router.navigate(['/home']);
         this.isLoading = false;
-      }, 4000);
+      }, 3000);
     }
   }
 }

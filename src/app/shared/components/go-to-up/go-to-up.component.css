@@ -1,0 +1,24 @@
+div {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: var(--orange);
+  z-index: 2;
+  transition: 0.3s;
+}
+div:hover {
+  transform: scale(1.2);
+}
+span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--darkPurple);
+  transform: scale(1.2);
+}

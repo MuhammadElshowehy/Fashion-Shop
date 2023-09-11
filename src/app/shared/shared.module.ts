@@ -9,6 +9,7 @@ import { popupMessageComponent } from './components/popup-message/popup-message.
 import { ProductsFiltersComponent } from './components/products-filters/products-filters.component';
 import { ProductComponent } from './components/product/product.component';
 import { CartOrFavoriteEmptyComponent } from './components/cart-or-favorite-empty/cart-or-favorite-empty.component';
+import { GoToUpComponent } from './components/go-to-up/go-to-up.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CartOrFavoriteEmptyComponent } from './components/cart-or-favorite-empt
     ProductsFiltersComponent,
     ProductComponent,
     CartOrFavoriteEmptyComponent,
+    GoToUpComponent,
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -30,7 +32,8 @@ import { CartOrFavoriteEmptyComponent } from './components/cart-or-favorite-empt
     popupMessageComponent,
     ProductsFiltersComponent,
     ProductComponent,
-    CartOrFavoriteEmptyComponent
+    CartOrFavoriteEmptyComponent,
+    GoToUpComponent
   ],
 })
 export class SharedModule {}

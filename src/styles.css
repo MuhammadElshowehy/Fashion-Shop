@@ -35,10 +35,10 @@ button:focus{
 }
 /* start style form inputs when validation */
 input.ng-touched.ng-invalid {
-  box-shadow: 0 0 0 0.25rem crimson !important;
+  box-shadow: 0 0 0 0.25rem red !important;
 }
 .form-group span {
-  color: crimson;
+  color: red;
 }
 /* end style form inputs when validation */
 h1{
@@ -61,7 +61,7 @@ h1{
   }
 }
 /* overlay animation */
-.overlay {
+/* .overlay {
   width: 100%;
   height: 100vh;
   position: absolute;
@@ -82,4 +82,4 @@ h1{
     background-color: var(--darkOrange);
     opacity: 0.75;
   }
-}
+} */

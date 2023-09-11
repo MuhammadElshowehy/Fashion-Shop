@@ -25,9 +25,9 @@ export class ProductsService {
   handleFetchError(error: any) {
     let errorMsg: string = 'sorry, an unknown error occurred!';
     if (error.status === 404) {
-      errorMsg = 'page you request not found';
+      errorMsg = 'page you request not found!';
     } else if (error.status === 500) {
-      errorMsg = 'server not responding';
+      errorMsg = 'server not responding!';
     }
     return errorMsg;
   }

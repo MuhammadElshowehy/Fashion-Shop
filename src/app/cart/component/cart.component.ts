@@ -11,7 +11,8 @@ export class CartComponent implements OnInit {
   constructor(private router: Router) {}
 
   cartProducts: ProductModel[] = [];
-  isEmpty: boolean = true;
+  isEmpty: boolean = false;
+  isLoading: boolean = true;
   cart: string = 'Cart';
   popupMessage: string = '';
   totalPrice: number = 0;
@@ -20,7 +21,6 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     let existed = JSON.parse(localStorage.getItem('cart'));
     if (existed) {
-      this.isEmpty = false;
       if (!existed.length) {
         this.cartProducts.push(existed);
       } else if (existed.length) {
@@ -29,6 +29,10 @@ export class CartComponent implements OnInit {
       }
       this.placeDefaultQuantity();
       this.calcTotalPrice();
+      this.isLoading = false;
+    } else {
+      this.isLoading = false;
+      this.isEmpty = true;
     }
   }
 
@@ -84,23 +88,31 @@ export class CartComponent implements OnInit {
   }
 
   removeAll() {
-    localStorage.removeItem('cart');
-    this.cartProducts = [];
-    this.isEmpty = true;
-    this.totalPrice = 0;
+    this.isLoading = true;
+    setTimeout(() => {
+      localStorage.removeItem('cart');
+      this.cartProducts = [];
+      this.isEmpty = true;
+      this.totalPrice = 0;
+      this.isLoading = false;
+    }, 1000);
   }
 
   remove(index: number) {
-    this.cartProducts.splice(index, 1);
-    this.removedSuccessfully();
-    if (this.cartProducts.length >= 1) {
-      localStorage.setItem('cart', JSON.stringify(this.cartProducts));
-      this.calcTotalPrice();
-    } else {
-      localStorage.removeItem('cart');
-      this.isEmpty = true;
-      this.totalPrice = 0;
-    }
+    this.isLoading = true;
+    setTimeout(() => {
+      this.cartProducts.splice(index, 1);
+      this.removedSuccessfully();
+      if (this.cartProducts.length >= 1) {
+        localStorage.setItem('cart', JSON.stringify(this.cartProducts));
+        this.calcTotalPrice();
+      } else {
+        localStorage.removeItem('cart');
+        this.isEmpty = true;
+        this.totalPrice = 0;
+      }
+      this.isLoading = false;
+    }, 1000);
   }
 
   goToCheckOut() {
