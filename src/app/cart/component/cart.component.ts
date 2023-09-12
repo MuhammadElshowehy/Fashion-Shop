@@ -116,10 +116,14 @@ export class CartComponent implements OnInit {
   }
 
   goToCheckOut() {
-    if (this.validQuantity === false) {
-      return;
-    } else {
-      this.router.navigate(['/checkout']);
-    }
+    this.isLoading= true;
+    setTimeout(() => {
+      if (this.validQuantity === false) {
+        return;
+      } else {
+        this.router.navigate(['/checkout']);
+      }
+      this.isLoading = false;
+    }, 1000);
   }
 }

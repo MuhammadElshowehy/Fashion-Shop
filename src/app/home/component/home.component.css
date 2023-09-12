@@ -1,0 +1,50 @@
+section {
+  height: fit-content;
+  row-gap: 10px;
+  margin-bottom: 20px;
+}
+img {
+  max-width: 100%;
+}
+section div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 40px;
+}
+section div h1{
+  position: relative;
+  font-size: 60px;
+  font-weight: bold;
+  line-height: 140%;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+}
+section div h1::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30%;
+  height: 5px;
+  background-color: var(--darkOrange);
+}
+section div h1::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 30%;
+  height: 5px;
+  background-color: var(--orange);
+}
+section div button {
+  background-color: var(--purple);
+  color: var(--white);
+  padding: 10px 30px;
+}
+section div button:hover {
+  background-color: var(--darkPurple);
+}
+

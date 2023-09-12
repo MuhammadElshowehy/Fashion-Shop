@@ -5,7 +5,11 @@ export class ProductModel {
   public image: string;
   public price: number;
   public quantity?: number;
-  public rating: object;
+  public rating: {
+    rate: number;
+    count: number;
+  };
+  public count: number;
   public title: string;
   constructor(
     category: string,
@@ -14,7 +18,10 @@ export class ProductModel {
     image: string,
     price: number,
     quantity: number,
-    rating: object,
+    rating: {
+      rate: number;
+      count: number;
+    },
     title: string
   ) {
     this.category = category;

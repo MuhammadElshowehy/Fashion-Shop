@@ -27,14 +27,12 @@ export class CheckoutComponent implements OnInit {
   isLoading: boolean = true;
 
   ngOnInit() {
-    setTimeout(() => {
-      this.products = this.checkoutService.getProducts();
-      this.totalPriceWithoutShipping =
-        this.checkoutService.totalWithoutShipping();
-      this.totalToPay = this.checkoutService.totalWithShipping();
-      this.arriveDate = this.checkoutService.arriveDate();
-      this.isLoading = false;
-    }, 1000);
+    this.products = this.checkoutService.getProducts();
+    this.totalPriceWithoutShipping =
+      this.checkoutService.totalWithoutShipping();
+    this.totalToPay = this.checkoutService.totalWithShipping();
+    this.arriveDate = this.checkoutService.arriveDate();
+    this.isLoading = false;
     // separate //
     this.creditCardForm = new FormGroup({
       nameOnCard: new FormControl(null, [

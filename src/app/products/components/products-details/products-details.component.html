@@ -21,8 +21,8 @@
     <p><span>Category:</span> {{ productDetails.category }}</p>
     <p><span>Price:</span> {{ productDetails.price | currency }}</p>
     <p>
-      <span>Rating:</span> {{ productDetails.rating.rate }} &starf; - rating
-      count: {{ productDetails.rating.count }}
+      <span>Rating:</span> {{ productDetails.rating.rate }} &starf; - <span>Count:</span>
+      {{ productDetails.rating.count }}
     </p>
   </div>
 </section>

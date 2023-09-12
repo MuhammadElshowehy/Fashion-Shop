@@ -1,3 +1,31 @@
 <app-loading *ngIf="isLoading"></app-loading>
 <!-- separate -->
-<h1>welcome to fashion shop <br> up to 40% <br> deals on bags & clothes</h1>
+<main *ngIf="!isLoading">
+  <section class="row">
+    <div class="col-sm-12 col-md-8">
+      <h1>sale all item up to 40%</h1>
+      <button class="btn" type="button" [routerLink]="['/products']">Shop now</button>
+    </div>
+    <div class="col-sm-12 col-md-4">
+      <img src="../../../assets/home/hijab style 3.jpg" alt="hijab style fashion">
+    </div>
+  </section>
+  <section class="row">
+    <div class="col-sm-12 col-md-4">
+      <img src="../../../assets/home/hijab style 4.jpg" alt="hijab style fashion">
+    </div>
+    <div class="col-sm-12 col-md-8">
+      <h1>discover the perfect gift for every occasion</h1>
+      <button class="btn" type="button" [routerLink]="['/products']">Shop now</button>
+    </div>
+  </section>
+  <section class="row">
+    <div class="col-sm-12 col-md-8">
+      <h1>discover the perfect gift for every occasion</h1>
+      <button class="btn" type="button" [routerLink]="['/products']">Shop now</button>
+    </div>
+    <div class="col-sm-12 col-md-4">
+      <img src="../../../assets/home/hijab style 4.jpg" alt="hijab style fashion">
+    </div>
+  </section>
+</main>

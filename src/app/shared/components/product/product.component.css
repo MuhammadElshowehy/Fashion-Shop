@@ -2,13 +2,14 @@
   margin-top: 20px;
 }
 .card-title {
-  color: var(--darkOrange);
+  color: var(--orange);
   max-height: 20px;
   overflow: hidden;
 }
 .card-text{
-  max-height: 50px;
+  max-height: 25px;
   overflow: hidden;
+  margin-bottom: 0;
 }
 .card img.image-product {
   max-width: 100%;
@@ -19,8 +20,20 @@
   text-transform: uppercase;
 }
 .price {
-  color: var(--orange);
-  font-size: 1.5rem;
+  color: var(--purple);
+  font-size: 1.75rem;
   width: 100%;
   margin: 0;
+}
+.rating{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+}
+.rating p {
+  margin-bottom: 0;
+}
+.rating span{
+  color: var(--orange);
 }
