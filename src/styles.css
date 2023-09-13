@@ -29,16 +29,19 @@ ul {
 }
 input:active,
 input:focus,
+textarea:active,
+textarea:focus,
 button:active,
 button:focus{
   box-shadow: 0 0 0 0.25rem rgba(89, 14, 42, 0.5) !important;
 }
 /* start style form inputs when validation */
-input.ng-touched.ng-invalid {
-  box-shadow: 0 0 0 0.25rem red !important;
+input.ng-touched.ng-invalid,
+textarea.ng-touched.ng-invalid {
+  box-shadow: 0 0 0 0.25rem #dc3545 !important;
 }
 .form-group span {
-  color: red;
+  color: #dc3545;
 }
 /* end style form inputs when validation */
 h1{
@@ -53,11 +56,6 @@ h1{
 @media (max-width: 768px) {
   h1{
     font-size: 1.5rem;
-  }
-}
-@media (max-width: 576px) {
-  h1{
-    font-size: 1.25rem;
   }
 }
 /* overlay animation */

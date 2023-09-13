@@ -2,27 +2,37 @@ section {
   height: fit-content;
   row-gap: 10px;
   margin-bottom: 20px;
+  box-shadow: 0 0 5px 0 var(--darkPurple);
+}
+section:last-of-type {
+  margin-bottom: 0;
 }
 img {
   max-width: 100%;
 }
-section div{
+section div {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  row-gap: 40px;
+  row-gap: 10px;
 }
-section div h1{
+section .text {
+  padding: 10px;
+}
+section div p {
   position: relative;
-  font-size: 60px;
+  font-size: 32px;
   font-weight: bold;
   line-height: 140%;
   letter-spacing: 10px;
   text-transform: uppercase;
+  text-align: center;
+  font-style: italic;
+  color: var(--purple);
 }
-section div h1::before {
-  content: '';
+section div p::before {
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -30,8 +40,8 @@ section div h1::before {
   height: 5px;
   background-color: var(--darkOrange);
 }
-section div h1::after {
-  content: '';
+section div p::after {
+  content: "";
   position: absolute;
   right: 0;
   bottom: 0;
@@ -40,11 +50,43 @@ section div h1::after {
   background-color: var(--orange);
 }
 section div button {
-  background-color: var(--purple);
+  background-color: var(--darkPurple);
   color: var(--white);
-  padding: 10px 30px;
+  font-size: 1.5rem;
+  padding: 10px 20px;
 }
 section div button:hover {
-  background-color: var(--darkPurple);
+  background-color: var(--purple);
 }
-
+/* last section */
+section:last-of-type {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+section:last-of-type div {
+  justify-content: space-between;
+}
+section:last-of-type div div {
+  display: flex;
+  flex-direction: row;
+}
+section:last-of-type div div svg {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+}
+form legend {
+  font-size: 1.5rem;
+  color: var(--purple);
+  font-weight: bold;
+}
+form input,
+form textarea {
+  margin: 5px 0;
+}
+form .send button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  font-size: 1rem;
+}
