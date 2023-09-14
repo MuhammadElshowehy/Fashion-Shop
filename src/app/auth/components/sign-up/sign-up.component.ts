@@ -15,6 +15,7 @@ export class SignUpComponent implements OnInit {
   popupMessage: string = '';
   isLoading: boolean;
   signupForm: FormGroup;
+
   newUser: UserModel = {
     fName: '',
     lName: '',

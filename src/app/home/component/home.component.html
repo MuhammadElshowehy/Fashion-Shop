@@ -1,3 +1,5 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<!-- separate -->
 <app-popup-message
   [popupMessage]="popupMessage"
   (closePopupMessage)="received($event)"

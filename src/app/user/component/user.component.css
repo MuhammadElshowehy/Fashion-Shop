@@ -1,0 +1,23 @@
+p span {
+  color: var(--purple);
+}
+legend {
+  font-size: 2rem;
+  color: var(--darkPurple);
+}
+label {
+  color: var(--darkPurple);
+}
+input {
+  border: 1px solid var(--darkPurple);
+}
+form button {
+  width: 40%;
+  margin: 10px auto;
+  color: var(--white);
+  background-color: var(--purple);
+}
+form button:hover {
+  background-color: var(--darkPurple);
+  color: var(--white);
+}

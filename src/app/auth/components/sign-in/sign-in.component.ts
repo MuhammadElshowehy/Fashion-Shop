@@ -40,36 +40,47 @@ export class SignInComponent implements OnInit {
       this.signinForm.value.password.trim();
   }
 
+  /* this method to fetch names of user and store in locale storage in authUser obj
+    so i can fetch from locale and show data in user page.
+  */
+  fetchNameOfUser(user: UserModel) {
+    this.authService.loggedUser.fName = user.fName;
+    this.authService.loggedUser.lName = user.lName;
+  }
+
   signin() {
     if (this.signinForm.valid) {
       this.isLoading = true;
       this.fetchDataFromForm();
       this.authService.checkTypeOfLocaleStorage();
       let users: UserModel[] = this.authService.usersArray;
-      setTimeout(() => {
-        for (let user of users) {
-          if (
-            user.email === this.authService.loggedUser.email &&
-            user.password === this.authService.loggedUser.password
-          ) {
-            this.resetForm();
-            this.popupMessage = 'Welcome to HappyCart';
-            this.authService.loggedUser.isLogged = true;
-            localStorage.setItem(
-              'authUser',
-              JSON.stringify(this.authService.loggedUser)
-            );
-            this.authService.emitAuthUser(this.authService.loggedUser);
-            setTimeout(() => {
-              this.router.navigate(['/home']);
-              this.isLoading = false;
-            }, 2500);
-            return;
+      if(users){
+        setTimeout(() => {
+          for (let user of users) {
+            if (
+              user.email === this.authService.loggedUser.email &&
+              user.password === this.authService.loggedUser.password
+            ) {
+              this.fetchNameOfUser(user);
+              this.resetForm();
+              this.popupMessage = 'Welcome to HappyCart';
+              this.authService.loggedUser.isLogged = true;
+              localStorage.setItem(
+                'authUser',
+                JSON.stringify(this.authService.loggedUser)
+              );
+              this.authService.emitAuthUser(this.authService.loggedUser);
+              setTimeout(() => {
+                this.router.navigate(['/home']);
+                this.isLoading = false;
+              }, 2500);
+              return;
+            }
           }
-        }
-        this.popupMessage = 'Email or password is incorrect!';
-        this.isLoading = false;
-      }, 1250);
+          this.popupMessage = 'Email or password is incorrect!';
+          this.isLoading = false;
+        }, 1250);
+      }
     }
   }
 }

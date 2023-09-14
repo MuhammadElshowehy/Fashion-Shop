@@ -51,3 +51,7 @@ ul.dropdown-menu a:active,
 ul.dropdown-menu a:focus{
   background-color: var(--white)
 }
+.user:active,
+.user:focus {
+  box-shadow: none !important;
+}

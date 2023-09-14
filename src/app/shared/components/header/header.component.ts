@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/service/auth.service';
+import { UserService } from 'src/app/user/service/user.service';
 
 @Component({
   selector: 'app-header',
@@ -17,14 +18,19 @@ import { AuthService } from 'src/app/auth/service/auth.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   isLogged: Boolean = false;
+  userIcon: string = '';
   obs: Subscription;
-  constructor(private renderer: Renderer2, private authService: AuthService) {}
+  constructor(
+    private renderer: Renderer2,
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
+    this.showUserIcon();
     this.obs = this.authService.authUserObs.subscribe((user) => {
       if (user) {
         this.isLogged = user.isLogged;
-        console.log(this.isLogged);
       }
     });
   }
@@ -40,6 +46,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else {
       this.renderer.setStyle(this.userMenu.nativeElement, 'display', 'none');
     }
+  }
+
+  showUserIcon() {
+    setTimeout(() => {
+      this.userIcon = this.userService.userIcon;
+    }, 1000);
   }
 
   logOut() {

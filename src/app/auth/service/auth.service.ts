@@ -10,6 +10,8 @@ export class AuthService {
   constructor(private router: Router) {}
 
   loggedUser: UserModel = {
+    fName: '',
+    lName: '',
     email: '',
     password: '',
     isLogged: false,
@@ -23,10 +25,12 @@ export class AuthService {
   checkTypeOfLocaleStorage() {
     this.usersArray = [];
     let existed = JSON.parse(localStorage.getItem('users'));
-    if (Array.isArray(existed)) {
-      this.usersArray = existed;
-    } else {
-      this.usersArray.push(existed);
+    if (existed) {
+      if (Array.isArray(existed)) {
+        this.usersArray = existed;
+      } else {
+        this.usersArray.push(existed);
+      }
     }
   }
 
@@ -56,6 +60,7 @@ export class AuthService {
 
   emitAuthUser(loggedUser: UserModel) {
     this.authUserObs.next(loggedUser);
+    return this.loggedUser.isLogged;
   }
 
   logOut() {

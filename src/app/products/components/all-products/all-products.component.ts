@@ -30,7 +30,6 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     this.obs = this.authService.authUserObs.subscribe((user) => {
       if (user) {
         this.isLogged = user.isLogged;
-        console.log(this.isLogged);
       }
     });
   }

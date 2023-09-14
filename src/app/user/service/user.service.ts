@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
+  userIcon: string;
 
-  constructor() { }
+  showUserIcon(userIcon: string) {
+    setTimeout(() => {
+      this.userIcon = userIcon;
+    }, 750);
+  }
 }

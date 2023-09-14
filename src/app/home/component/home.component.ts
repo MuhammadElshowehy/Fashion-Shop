@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   popupMessage: string;
+  isLoading: boolean = false;
   contactForm: FormGroup;
 
   ngOnInit() {
@@ -23,9 +24,13 @@ export class HomeComponent implements OnInit {
 
   send() {
     if (this.contactForm.valid) {
-      let msg: string = 'Your message sent successfully, thank you.';
-      this.popupMessage = msg;
-      this.contactForm.reset();
+      this.isLoading = true;
+      setTimeout(() => {
+        let msg: string = 'Your message sent successfully, thank you.';
+        this.popupMessage = msg;
+        this.contactForm.reset();
+        this.isLoading = false;
+      }, 1000);
     }
   }
 
