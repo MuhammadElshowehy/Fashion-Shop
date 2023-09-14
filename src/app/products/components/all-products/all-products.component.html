@@ -37,7 +37,7 @@
           [productComp]="product"
           [routerLink]="['/details/', product.id]"
         ></app-product>
-        <div class="actions">
+        <div class="actions" *ngIf="isLogged">
           <button class="btn">
             <img
               (click)="addToCart(product)"

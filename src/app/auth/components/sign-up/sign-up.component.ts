@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserModel } from 'src/app/models/user-model';
+import { AuthService } from '../../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -7,7 +10,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent implements OnInit {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  popupMessage: string = '';
+  isLoading: boolean;
   signupForm: FormGroup;
+  newUser: UserModel = {
+    fName: '',
+    lName: '',
+    email: '',
+    password: '',
+  };
 
   ngOnInit() {
     this.signupForm = new FormGroup({
@@ -19,10 +32,6 @@ export class SignUpComponent implements OnInit {
         Validators.required,
         Validators.minLength(3),
       ]),
-      username: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [
         Validators.required,
@@ -31,14 +40,35 @@ export class SignUpComponent implements OnInit {
     });
   }
 
+  received(data: string) {
+    this.popupMessage = data;
+  }
+
   resetForm() {
     this.signupForm.reset();
   }
 
+  fetchDataFromForm() {
+    this.newUser.fName = this.signupForm.value.fName.trim();
+    this.newUser.lName = this.signupForm.value.lName.trim();
+    this.newUser.email = this.signupForm.value.email.trim();
+    this.newUser.password = this.signupForm.value.password.trim();
+  }
+
   signup() {
     if (this.signupForm.valid) {
-      console.log(this.signupForm);
-      this.resetForm();
+      this.isLoading = true;
+      this.fetchDataFromForm();
+      setTimeout(() => {
+        this.popupMessage = this.authService.addNewUser(this.newUser);
+        this.isLoading = false;
+      }, 1250);
+      setTimeout(() => {
+        if (this.authService.isCreatedSuccessfully) {
+          this.resetForm();
+          this.router.navigate(['/signin']);
+        }
+      }, 2500);
     }
   }
 }

@@ -1,3 +1,10 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<!-- separate -->
+<app-popup-message
+  [popupMessage]="popupMessage"
+  (closePopupMessage)="received($event)"
+></app-popup-message>
+<!-- separate -->
 <section class="row">
   <div class="col-sm-12 col-md-9 col-lg-8 col-xl-6">
     <form [formGroup]="signinForm" (ngSubmit)="signin()">
@@ -49,6 +56,9 @@
             </span>
           </span>
         </div>
+        <a class="not-have-account" [routerLink]="['/signup']"
+          >Do'nt have account?</a
+        >
         <div class="actions">
           <button class="btn" type="button" (click)="resetForm()">
             Reset form

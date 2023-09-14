@@ -13,6 +13,9 @@ label {
 input {
   border: 1px solid var(--darkPurple);
 }
+a.have-account {
+  color: var(--orange);
+}
 .actions {
   margin-top: 20px;
   display: flex;

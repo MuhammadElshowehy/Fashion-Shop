@@ -1,24 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductModel } from 'src/app/product-model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ProductModel } from 'src/app/models/product-model';
 import { ProductsService } from '../../service/products.service';
+import { AuthService } from 'src/app/auth/service/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-all-products',
   templateUrl: './all-products.component.html',
   styleUrls: ['./all-products.component.css'],
 })
-export class AllProductsComponent implements OnInit {
-  constructor(private productsService: ProductsService) {}
+export class AllProductsComponent implements OnInit, OnDestroy {
+  constructor(
+    private productsService: ProductsService,
+    private authService: AuthService
+  ) {}
+
   products: ProductModel[] = [];
   categories: string[] = [];
   isLoading: boolean = true;
   PopupMessage: string = '';
   cartProducts: ProductModel[];
   favoriteProducts: ProductModel[];
+  isLogged: boolean = false;
+  obs: Subscription;
 
   ngOnInit() {
     this.showProducts();
     this.getAllCategories();
+    this.obs = this.authService.authUserObs.subscribe((user) => {
+      if (user) {
+        this.isLogged = user.isLogged;
+        console.log(this.isLogged);
+      }
+    });
   }
 
   showProducts() {
@@ -106,12 +120,14 @@ export class AllProductsComponent implements OnInit {
   }
 
   addToCart(product: ProductModel) {
-    this.isLoading =true;
+    this.isLoading = true;
     setTimeout(() => {
       if ('cart' in localStorage) {
         this.cartProducts = [];
         this.checkCart();
-        let duplicated = this.cartProducts.find((item) => item.id === product.id);
+        let duplicated = this.cartProducts.find(
+          (item) => item.id === product.id
+        );
         if (duplicated) {
           this.isLoading = false;
           this.alreadyAdded();
@@ -179,4 +195,8 @@ export class AllProductsComponent implements OnInit {
     }, 1000);
   }
   /** end of add products to favorite and localestorage methods: **/
+
+  ngOnDestroy() {
+    this.obs.unsubscribe();
+  }
 }
