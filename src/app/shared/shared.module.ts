@@ -33,7 +33,7 @@ import { GoToUpComponent } from './components/go-to-up/go-to-up.component';
     ProductsFiltersComponent,
     ProductComponent,
     CartOrFavoriteEmptyComponent,
-    GoToUpComponent
+    GoToUpComponent,
   ],
 })
 export class SharedModule {}

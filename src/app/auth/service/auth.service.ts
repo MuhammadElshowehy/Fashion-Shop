@@ -12,9 +12,12 @@ export class AuthService {
   loggedUser: UserModel = {
     fName: '',
     lName: '',
+    isLogged: false,
     email: '',
     password: '',
-    isLogged: false,
+    cart: [],
+    favorite: [],
+    orders: [],
   };
 
   usersArray: UserModel[];
@@ -22,21 +25,23 @@ export class AuthService {
   isCreatedSuccessfully: boolean = false;
   authUserObs = new BehaviorSubject<UserModel>(null);
 
-  checkTypeOfLocaleStorage() {
+  checkTypeOfUsersInLocaleStorage() {
     this.usersArray = [];
-    let existed = JSON.parse(localStorage.getItem('users'));
-    if (existed) {
-      if (Array.isArray(existed)) {
-        this.usersArray = existed;
-      } else {
-        this.usersArray.push(existed);
+    if (localStorage.getItem('users')) {
+      let existed = JSON.parse(localStorage.getItem('users'));
+      if (existed) {
+        if (Array.isArray(existed)) {
+          this.usersArray = existed;
+        } else {
+          this.usersArray.push(existed);
+        }
       }
     }
   }
 
   addNewUser(newUser: UserModel) {
     if ('users' in localStorage) {
-      this.checkTypeOfLocaleStorage();
+      this.checkTypeOfUsersInLocaleStorage();
       let duplicated = this.usersArray.find(
         (user) => user.email === newUser.email
       );
@@ -64,9 +69,21 @@ export class AuthService {
   }
 
   logOut() {
+    this.saveUserDataBeforeLoggedOut();
     localStorage.removeItem('authUser');
     this.loggedUser.isLogged = false;
     this.emitAuthUser(this.loggedUser);
     this.router.navigate(['/signin']);
+  }
+
+  saveUserDataBeforeLoggedOut() {
+    this.checkTypeOfUsersInLocaleStorage();
+    let authUser: UserModel = JSON.parse(localStorage.getItem('authUser'));
+    for (let i = 0; i < this.usersArray.length; i++) {
+      if (this.usersArray[i].email === authUser.email) {
+        this.usersArray.splice(i, 1, authUser);
+        localStorage.setItem('users', JSON.stringify(this.usersArray));
+      }
+    }
   }
 }

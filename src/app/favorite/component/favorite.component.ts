@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductModel } from 'src/app/models/product-model';
+import { UserModel } from 'src/app/models/user-model';
 
 @Component({
   selector: 'app-favorite',
@@ -7,25 +8,17 @@ import { ProductModel } from 'src/app/models/product-model';
   styleUrls: ['./favorite.component.css'],
 })
 export class FavoriteComponent implements OnInit {
-  favoriteProducts: ProductModel[] = [];
+  favoriteProducts: ProductModel[];
+  authUser: UserModel;
   isEmpty: boolean = false;
-  isLoading: boolean = true;
+  isLoading: boolean = false;
   favorite: string = 'Favorite';
   PopupMessage: string = '';
 
   ngOnInit() {
-    let existed = JSON.parse(localStorage.getItem('favorite'));
-    if (existed) {
-      if (!existed.length) {
-        // condition means: existed contain single product:object.
-        this.favoriteProducts.push(existed);
-      } else if (existed.length) {
-        // condition means: existed contain array of products:[].
-        this.favoriteProducts = existed;
-      }
-      this.isLoading = false;
-    } else {
-      this.isLoading = false;
+    this.authUser = JSON.parse(localStorage.getItem('authUser'));
+    this.favoriteProducts = this.authUser.favorite;
+    if (!this.favoriteProducts) {
       this.isEmpty = true;
     }
   }
@@ -42,12 +35,10 @@ export class FavoriteComponent implements OnInit {
   remove(index: number) {
     this.isLoading = true;
     setTimeout(() => {
-      this.favoriteProducts.splice(index, 1);
+      this.authUser.favorite.splice(index, 1);
       this.removedSuccessfully();
-      if (this.favoriteProducts.length >= 1) {
-        localStorage.setItem('favorite', JSON.stringify(this.favoriteProducts));
-      } else {
-        localStorage.removeItem('favorite');
+      localStorage.setItem('authUser', JSON.stringify(this.authUser));
+      if (this.authUser.favorite.length < 1) {
         this.isEmpty = true;
       }
       this.isLoading = false;
@@ -57,8 +48,9 @@ export class FavoriteComponent implements OnInit {
   removeAll() {
     this.isLoading = true;
     setTimeout(() => {
-      localStorage.removeItem('favorite');
       this.favoriteProducts = [];
+      this.authUser.favorite = [];
+      localStorage.setItem('authUser', JSON.stringify(this.authUser));
       this.isEmpty = true;
       this.isLoading = false;
     }, 1000);
@@ -86,35 +78,17 @@ export class FavoriteComponent implements OnInit {
   addToCart(product: ProductModel) {
     this.isLoading = true;
     setTimeout(() => {
-      if (localStorage.getItem('cart')) {
-        let cartInLocale = JSON.parse(localStorage.getItem('cart'));
-        if (cartInLocale.length) {
-          if (this.isDuplicated(cartInLocale, product)) {
-            this.isLoading = false;
-            this.alreadyAdded();
-            return;
-          } else {
-            cartInLocale.push(product);
-            localStorage.setItem('cart', JSON.stringify(cartInLocale));
-            this.isLoading = false;
-            this.addedSuccessfully();
-          }
-        } else {
-          let singleProduct: ProductModel[] = [];
-          singleProduct.push(cartInLocale);
-          if (this.isDuplicated(singleProduct, product)) {
-            this.isLoading = false;
-            this.alreadyAdded();
-            return;
-          } else {
-            singleProduct.push(product);
-            localStorage.setItem('cart', JSON.stringify(singleProduct));
-            this.isLoading = false;
-            this.addedSuccessfully();
-          }
-        }
+      this.authUser = JSON.parse(localStorage.getItem('authUser'));
+      let duplicated = this.authUser.cart.find(
+        (item: ProductModel) => item.id === product.id
+      );
+      if (duplicated) {
+        this.isLoading = false;
+        this.alreadyAdded();
+        return;
       } else {
-        localStorage.setItem('cart', JSON.stringify(product));
+        this.authUser.cart.push(product);
+        localStorage.setItem('authUser', JSON.stringify(this.authUser));
         this.isLoading = false;
         this.addedSuccessfully();
       }

@@ -15,6 +15,8 @@ export class SignInComponent implements OnInit {
   isLoading: boolean = false;
   popupMessage: string = '';
   signinForm: FormGroup;
+  emailInput: string = '';
+  passInput: string = '';
 
   ngOnInit() {
     this.signinForm = new FormGroup({
@@ -35,52 +37,55 @@ export class SignInComponent implements OnInit {
   }
 
   fetchDataFromForm() {
-    this.authService.loggedUser.email = this.signinForm.value.email.trim();
-    this.authService.loggedUser.password =
-      this.signinForm.value.password.trim();
+    this.emailInput = this.signinForm.value.email.trim();
+    this.passInput = this.signinForm.value.password.trim();
   }
 
-  /* this method to fetch names of user and store in locale storage in authUser obj
-    so i can fetch from locale and show data in user page.
-  */
-  fetchNameOfUser(user: UserModel) {
-    this.authService.loggedUser.fName = user.fName;
-    this.authService.loggedUser.lName = user.lName;
+  fetchAllDataOfUser(user: UserModel) {
+    this.authService.loggedUser = user;
   }
 
   signin() {
+    let notFound: string = 'There is no account with this email!';
+    let wrongPass: string = 'Password is incorrect!';
     if (this.signinForm.valid) {
       this.isLoading = true;
       this.fetchDataFromForm();
-      this.authService.checkTypeOfLocaleStorage();
+      this.authService.checkTypeOfUsersInLocaleStorage();
       let users: UserModel[] = this.authService.usersArray;
-      if(users){
-        setTimeout(() => {
+      setTimeout(() => {
+        if (users.length >= 1) {
           for (let user of users) {
-            if (
-              user.email === this.authService.loggedUser.email &&
-              user.password === this.authService.loggedUser.password
-            ) {
-              this.fetchNameOfUser(user);
-              this.resetForm();
-              this.popupMessage = 'Welcome to HappyCart';
-              this.authService.loggedUser.isLogged = true;
-              localStorage.setItem(
-                'authUser',
-                JSON.stringify(this.authService.loggedUser)
-              );
-              this.authService.emitAuthUser(this.authService.loggedUser);
-              setTimeout(() => {
-                this.router.navigate(['/home']);
+            if (user.email === this.emailInput) {
+              if (user.password === this.passInput) {
+                this.fetchAllDataOfUser(user);
+                this.resetForm();
+                this.popupMessage = 'Welcome to HappyCart';
+                this.authService.loggedUser.isLogged = true;
+                localStorage.setItem(
+                  'authUser',
+                  JSON.stringify(this.authService.loggedUser)
+                );
+                this.authService.emitAuthUser(this.authService.loggedUser);
+                setTimeout(() => {
+                  this.router.navigate(['/home']);
+                  this.isLoading = false;
+                }, 2500);
+                return;
+              } else {
+                this.popupMessage = wrongPass;
                 this.isLoading = false;
-              }, 2500);
-              return;
+              }
+            } else {
+              this.popupMessage = notFound;
+              this.isLoading = false;
             }
           }
-          this.popupMessage = 'Email or password is incorrect!';
+        } else {
+          this.popupMessage = notFound;
           this.isLoading = false;
-        }, 1250);
-      }
+        }
+      }, 1250);
     }
   }
 }

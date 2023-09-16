@@ -18,7 +18,7 @@ a.navbar-brand {
 a.navbar-brand:active,
 a.navbar-brand:focus,
 .dropdown-toggle:active,
-.dropdown-toggle:focus{
+.dropdown-toggle:focus {
   color: var(--white);
 }
 a {
@@ -37,7 +37,7 @@ a:hover,
 button:hover {
   color: var(--white);
 }
-button.dropdown-toggle{
+button.dropdown-toggle {
   border-radius: 5px;
 }
 ul.dropdown-menu {
@@ -48,10 +48,16 @@ ul.dropdown-menu a {
   color: var(--darkPurple);
 }
 ul.dropdown-menu a:active,
-ul.dropdown-menu a:focus{
-  background-color: var(--white)
+ul.dropdown-menu a:focus {
+  background-color: var(--white);
 }
-.user:active,
-.user:focus {
+.user-logo {
+  background-color: var(--darkPurple);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+.user-logo:active,
+.user-logo:focus {
   box-shadow: none !important;
 }

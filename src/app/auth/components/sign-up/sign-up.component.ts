@@ -21,6 +21,9 @@ export class SignUpComponent implements OnInit {
     lName: '',
     email: '',
     password: '',
+    cart: [],
+    favorite: [],
+    orders: [],
   };
 
   ngOnInit() {

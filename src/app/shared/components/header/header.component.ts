@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/service/auth.service';
-import { UserService } from 'src/app/user/service/user.service';
+import { UserModel } from 'src/app/models/user-model';
 
 @Component({
   selector: 'app-header',
@@ -18,28 +18,25 @@ import { UserService } from 'src/app/user/service/user.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   isLogged: Boolean = false;
-  userIcon: string = '';
   obs: Subscription;
-  constructor(
-    private renderer: Renderer2,
-    private authService: AuthService,
-    private userService: UserService
-  ) {}
+  userLogo: string = '';
+
+  collapsed: boolean = true;
+  isOpen: boolean = false;
+  @ViewChild('user') userMenu: ElementRef;
+
+  constructor(private renderer: Renderer2, private authService: AuthService) {}
 
   ngOnInit() {
-    this.showUserIcon();
     this.obs = this.authService.authUserObs.subscribe((user) => {
       if (user) {
         this.isLogged = user.isLogged;
+        this.getUserName();
       }
     });
   }
 
-  collapsed: boolean = true;
-  @ViewChild('user') userMenu: ElementRef;
-  isOpen: boolean = false;
-
-  open() {
+  toggleOpen() {
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
       this.renderer.setStyle(this.userMenu.nativeElement, 'display', 'block');
@@ -48,10 +45,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  showUserIcon() {
-    setTimeout(() => {
-      this.userIcon = this.userService.userIcon;
-    }, 1000);
+  getUserName() {
+    if (localStorage.getItem('authUser')) {
+      let authUser: UserModel = JSON.parse(localStorage.getItem('authUser'));
+      let FirstLetterFromFName: string = authUser.fName.substring(0, 1);
+      let FirstLetterFromLName: string = authUser.lName.substring(0, 1);
+      this.userLogo = (
+        FirstLetterFromFName + FirstLetterFromLName
+      ).toUpperCase();
+      console.log(this.userLogo);
+    }
   }
 
   logOut() {

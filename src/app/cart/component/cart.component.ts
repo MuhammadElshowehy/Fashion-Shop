@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductModel } from 'src/app/models/product-model';
+import { UserModel } from 'src/app/models/user-model';
 
 @Component({
   selector: 'app-cart',
@@ -11,41 +12,40 @@ export class CartComponent implements OnInit {
   constructor(private router: Router) {}
 
   cartProducts: ProductModel[] = [];
+  authUser: UserModel;
   isEmpty: boolean = false;
-  isLoading: boolean = true;
+  isLoading: boolean = false;
   cart: string = 'Cart';
   popupMessage: string = '';
   totalPrice: number = 0;
   validQuantity: boolean = true;
 
+  getAuthUser() {
+    this.authUser = JSON.parse(localStorage.getItem('authUser'));
+    return this.authUser;
+  }
+
+  setAuthUser(authUser: UserModel) {
+    localStorage.setItem('authUser', JSON.stringify(authUser));
+  }
+
   ngOnInit() {
-    let existed = JSON.parse(localStorage.getItem('cart'));
-    if (existed) {
-      if (!existed.length) {
-        this.cartProducts.push(existed);
-      } else if (existed.length) {
-        this.cartProducts = existed;
-        // here: products stored in cartProducts array.
-      }
-      this.placeDefaultQuantity();
-      this.calcTotalPrice();
-      this.isLoading = false;
-    } else {
-      this.isLoading = false;
+    this.cartProducts = this.getAuthUser().cart;
+    this.placeDefaultQuantity();
+    this.calcTotalPrice();
+    if (!this.cartProducts) {
       this.isEmpty = true;
     }
   }
 
   placeDefaultQuantity() {
-    let arr: ProductModel[] = [];
     for (let product of this.cartProducts) {
       if (!product.quantity) {
         product = Object.assign({ quantity: 1 }, product);
       }
-      arr.push(product);
     }
-    this.cartProducts = arr;
-    localStorage.setItem('cart', JSON.stringify(this.cartProducts));
+    this.authUser.cart = this.cartProducts;
+    this.setAuthUser(this.authUser);
   }
 
   calcQuantity(item: ProductModel, event: Event) {
@@ -57,15 +57,14 @@ export class CartComponent implements OnInit {
       return;
     } else {
       this.validQuantity = true;
-      this.popupMessage = '';
       item.quantity = quantity;
-      // console.log(item);
       for (let product of this.cartProducts) {
         if (product.id === item.id) {
           product = item;
         }
       }
-      localStorage.setItem('cart', JSON.stringify(this.cartProducts));
+      this.authUser.cart = this.cartProducts;
+      this.setAuthUser(this.authUser);
       this.calcTotalPrice();
     }
   }
@@ -90,8 +89,9 @@ export class CartComponent implements OnInit {
   removeAll() {
     this.isLoading = true;
     setTimeout(() => {
-      localStorage.removeItem('cart');
       this.cartProducts = [];
+      this.authUser.cart = [];
+      this.setAuthUser(this.authUser);
       this.isEmpty = true;
       this.totalPrice = 0;
       this.isLoading = false;
@@ -103,11 +103,11 @@ export class CartComponent implements OnInit {
     setTimeout(() => {
       this.cartProducts.splice(index, 1);
       this.removedSuccessfully();
-      if (this.cartProducts.length >= 1) {
-        localStorage.setItem('cart', JSON.stringify(this.cartProducts));
+      this.authUser.cart = this.cartProducts;
+      this.setAuthUser(this.authUser);
+      if (this.cartProducts) {
         this.calcTotalPrice();
       } else {
-        localStorage.removeItem('cart');
         this.isEmpty = true;
         this.totalPrice = 0;
       }
@@ -116,7 +116,7 @@ export class CartComponent implements OnInit {
   }
 
   goToCheckOut() {
-    this.isLoading= true;
+    this.isLoading = true;
     setTimeout(() => {
       if (this.validQuantity === false) {
         return;

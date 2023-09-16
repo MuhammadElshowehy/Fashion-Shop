@@ -18,7 +18,7 @@
       </div>
       <p><span>Password: </span>{{ currentUser.password }}</p>
     </div>
-    <form [formGroup]="passForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
       <fieldset>
         <legend>Change Password:</legend>
         <div class="form-group">
@@ -31,13 +31,13 @@
           />
           <span
             *ngIf="
-              passForm.get('oldPass').invalid && passForm.get('oldPass').touched
+            passwordForm.get('oldPass').invalid && passwordForm.get('oldPass').touched
             "
           >
-            <span *ngIf="passForm.get('oldPass').errors['required']">
+            <span *ngIf="passwordForm.get('oldPass').errors['required']">
               Please insert old password!
             </span>
-            <span *ngIf="passForm.get('oldPass').errors['pattern']">
+            <span *ngIf="passwordForm.get('oldPass').errors['pattern']">
               insert at least six chars contains: 1 upper char, 1 number & 1
               special char (!@#$%^&*)
             </span>
@@ -53,13 +53,13 @@
           />
           <span
             *ngIf="
-              passForm.get('newPass').invalid && passForm.get('newPass').touched
+            passwordForm.get('newPass').invalid && passwordForm.get('newPass').touched
             "
           >
-            <span *ngIf="passForm.get('newPass').errors['required']">
+            <span *ngIf="passwordForm.get('newPass').errors['required']">
               Please insert old password!
             </span>
-            <span *ngIf="passForm.get('newPass').errors['pattern']">
+            <span *ngIf="passwordForm.get('newPass').errors['pattern']">
               insert at least six chars contains: 1 upper char, 1 number & 1
               special char (!@#$%^&*)
             </span>
@@ -69,7 +69,7 @@
           <button
             class="btn text-center"
             type="submit"
-            [disabled]="passForm.invalid"
+            [disabled]="passwordForm.invalid"
           >
             Change
           </button>

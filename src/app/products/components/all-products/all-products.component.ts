@@ -3,6 +3,7 @@ import { ProductModel } from 'src/app/models/product-model';
 import { ProductsService } from '../../service/products.service';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Subscription } from 'rxjs';
+import { UserModel } from 'src/app/models/user-model';
 
 @Component({
   selector: 'app-all-products',
@@ -19,8 +20,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   categories: string[] = [];
   isLoading: boolean = true;
   PopupMessage: string = '';
-  cartProducts: ProductModel[];
-  favoriteProducts: ProductModel[];
+  authUser: UserModel;
   isLogged: boolean = false;
   obs: Subscription;
 
@@ -70,19 +70,16 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   filterBy($event: Event) {
     this.isLoading = true;
     let category: string = (<HTMLButtonElement>$event.target).innerHTML;
-    // console.log(category);
     category = category.trim();
     if (category === 'all') {
       this.showProducts();
     } else {
       this.productsService.filterReq(category).subscribe(
         (res: ProductModel[]) => {
-          // console.log(res);
           this.products = res;
           this.isLoading = false;
         },
         (error) => {
-          // console.log(error);
           this.PopupMessage = this.productsService.handleFetchError(error);
           this.isLoading = false;
         }
@@ -108,39 +105,23 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   /** end search method. **/
 
   /** start of add products to cart and localestorage methods: **/
-  checkCart() {
-    let existed = JSON.parse(localStorage.getItem('cart'));
-    // console.log(existed);
-    if (!existed.length) {
-      this.cartProducts.push(existed);
-    } else {
-      this.cartProducts = existed;
-    }
-  }
-
   addToCart(product: ProductModel) {
     this.isLoading = true;
+    this.authUser = JSON.parse(localStorage.getItem('authUser'));
     setTimeout(() => {
-      if ('cart' in localStorage) {
-        this.cartProducts = [];
-        this.checkCart();
-        let duplicated = this.cartProducts.find(
-          (item) => item.id === product.id
-        );
-        if (duplicated) {
-          this.isLoading = false;
-          this.alreadyAdded();
-          return;
-        }
-        this.cartProducts.push(product);
-        // console.log(this.cartProducts);
-        localStorage.setItem('cart', JSON.stringify(this.cartProducts));
+      let duplicated = this.authUser.cart.find(
+        (item) => item.id === product.id
+      );
+      if (duplicated) {
         this.isLoading = false;
-        this.addedSuccessfullyMsg();
+        this.alreadyAdded();
+        return;
       } else {
-        localStorage.setItem('cart', JSON.stringify(product));
-        this.isLoading = false;
+        this.authUser.cart.push(product);
         this.addedSuccessfullyMsg();
+        localStorage.setItem('authUser', JSON.stringify(this.authUser));
+        this.isLoading = false;
+        return;
       }
     }, 1000);
   }
@@ -157,39 +138,23 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   }
 
   /** start of add products to favorite and localestorage methods: **/
-  checkFavorite() {
-    let existed = JSON.parse(localStorage.getItem('favorite'));
-    // console.log(existed);
-    if (!existed.length) {
-      this.favoriteProducts.push(existed);
-    } else {
-      this.favoriteProducts = existed;
-    }
-  }
-
   addToFavorite(product: ProductModel) {
     this.isLoading = true;
+    this.authUser = JSON.parse(localStorage.getItem('authUser'));
     setTimeout(() => {
-      if ('favorite' in localStorage) {
-        this.favoriteProducts = [];
-        this.checkFavorite();
-        let duplicated = this.favoriteProducts.find(
-          (item) => item.id === product.id
-        );
-        if (duplicated) {
-          this.isLoading = false;
-          this.alreadyAdded();
-          return;
-        }
-        this.favoriteProducts.push(product);
-        // console.log(this.favoriteProducts);
-        localStorage.setItem('favorite', JSON.stringify(this.favoriteProducts));
+      let duplicated = this.authUser.favorite.find(
+        (item) => item.id === product.id
+      );
+      if (duplicated) {
         this.isLoading = false;
-        this.addedSuccessfullyMsg();
+        this.alreadyAdded();
+        return;
       } else {
-        localStorage.setItem('favorite', JSON.stringify(product));
-        this.isLoading = false;
+        this.authUser.favorite.push(product);
         this.addedSuccessfullyMsg();
+        localStorage.setItem('authUser', JSON.stringify(this.authUser));
+        this.isLoading = false;
+        return;
       }
     }, 1000);
   }
