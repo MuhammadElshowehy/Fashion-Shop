@@ -20,10 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isLogged: Boolean = false;
   obs: Subscription;
   userLogo: string = '';
-
   collapsed: boolean = true;
-  isOpen: boolean = false;
-  @ViewChild('user') userMenu: ElementRef;
 
   constructor(private renderer: Renderer2, private authService: AuthService) {}
 
@@ -34,15 +31,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.getUserName();
       }
     });
-  }
-
-  toggleOpen() {
-    this.isOpen = !this.isOpen;
-    if (this.isOpen) {
-      this.renderer.setStyle(this.userMenu.nativeElement, 'display', 'block');
-    } else {
-      this.renderer.setStyle(this.userMenu.nativeElement, 'display', 'none');
-    }
   }
 
   getUserName() {

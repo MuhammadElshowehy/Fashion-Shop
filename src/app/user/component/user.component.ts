@@ -37,7 +37,7 @@ export class UserComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('authUser'));
   }
 
-  fetchOrders(){
+  fetchOrders() {
     this.orders = this.currentUser.orders;
   }
 
@@ -49,15 +49,17 @@ export class UserComponent implements OnInit {
         this.currentUser.email === user.email &&
         this.passwordForm.value.oldPass === user.password
       ) {
+        console.log(true);
         user.password = this.passwordForm.value.newPass;
         localStorage.setItem('users', JSON.stringify(users));
         this.popupMessage = 'Password changed successfully';
         this.changePassForAuthUserToo();
         this.passwordForm.reset();
-      } else {
-        this.popupMessage = 'Old password is incorrect!';
+        return;
       }
     }
+    console.log(false);
+    this.popupMessage = 'Old password is incorrect!';
   }
 
   changePassForAuthUserToo() {

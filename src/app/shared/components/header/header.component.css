@@ -40,15 +40,15 @@ button:hover {
 button.dropdown-toggle {
   border-radius: 5px;
 }
-ul.dropdown-menu {
+ul.user-menu {
   position: absolute;
   right: 0;
 }
-ul.dropdown-menu a {
+ul.user-menu a {
   color: var(--darkPurple);
 }
-ul.dropdown-menu a:active,
-ul.dropdown-menu a:focus {
+ul.user-menu a:active,
+ul.user-menu a:focus {
   background-color: var(--white);
 }
 .user-logo {
@@ -60,4 +60,10 @@ ul.dropdown-menu a:focus {
 .user-logo:active,
 .user-logo:focus {
   box-shadow: none !important;
+}
+/* show user menu on hover */
+nav li.user-button:hover {
+  .user-menu{
+    display: block !important;
+  }
 }
