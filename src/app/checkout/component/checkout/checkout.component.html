@@ -15,7 +15,7 @@
       <ul class="product" *ngFor="let item of products">
         <li>
           <div class="image">
-            <img src="{{ item.image }}" alt="{{ item.title }}" />
+            <img src="{{ item.image }}" alt="{{ item.title }}" loading="lazy"/>
           </div>
           <div class="text">
             <h4><span>Title</span> {{ item.title }}</h4>
@@ -182,7 +182,7 @@
     <p><span>Total to pay: </span>{{ totalToPay | currency }}</p>
   </div>
   <div class="col-lg-4 col-md-8 col-sm-12">
-    <p><span>Arrive date: </span>{{ arriveDate }} between 9 AM to 9 PM.</p>
+    <p><span>Arrive date: </span>{{ arrivalDate }} between 9 AM to 9 PM.</p>
   </div>
   <div class="col-lg-4 col-md-8 col-sm-12 m-auto">
     <button

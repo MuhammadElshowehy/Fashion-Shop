@@ -1,3 +1,6 @@
+p {
+  margin-bottom: 5px;
+}
 p span {
   color: var(--purple);
 }
@@ -11,6 +14,11 @@ label {
 input {
   border: 1px solid var(--darkPurple);
 }
+@media (max-width: 768px) {
+  input {
+    width: 100% !important;
+  }
+}
 form button {
   width: 40%;
   margin: 10px auto;
@@ -20,4 +28,31 @@ form button {
 form button:hover {
   background-color: var(--darkPurple);
   color: var(--white);
+}
+/* orders */
+h2 {
+  color: var(--purple);
+  font-size: 1.5rem;
+}
+.order {
+  border: 1px solid var(--purple);
+  position: relative;
+}
+.order span.count {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--darkPurple);
+  color: var(--orange);
+  width: 35px;
+  height: 35px;
+}
+.order .products,
+.order-info div {
+  padding: 10px 10px 10px 45px;
+}
+.order .products img {
+  width: 50px;
+  height: 50px;
 }

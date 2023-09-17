@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
         Validators.minLength(3),
       ]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      msg: new FormControl(null, Validators.required),
+      msg: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     });
   }
 

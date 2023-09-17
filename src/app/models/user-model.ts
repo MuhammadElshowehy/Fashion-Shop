@@ -1,3 +1,4 @@
+import { OrderModel } from "./order.model";
 import { ProductModel } from "./product-model";
 
 export class UserModel {
@@ -8,7 +9,7 @@ export class UserModel {
   public password: string;
   public cart?: ProductModel[];
   public favorite?: ProductModel[];
-  public orders?: [];
+  public orders?: OrderModel[];
   constructor(
     fName: string,
     lName: string,
@@ -17,7 +18,7 @@ export class UserModel {
     password: string,
     cart: ProductModel[],
     favorite: ProductModel[],
-    orders: []
+    orders: OrderModel[]
   ) {
     this.fName = fName;
     this.lName = lName;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/service/auth.service';
+import { OrderModel } from 'src/app/models/order.model';
 import { UserModel } from 'src/app/models/user-model';
 
 @Component({
@@ -11,12 +12,14 @@ import { UserModel } from 'src/app/models/user-model';
 export class UserComponent implements OnInit {
   constructor(private authService: AuthService) {}
   passwordForm: FormGroup;
+  orders: OrderModel[] = [];
   currentUser: UserModel;
   isLoading: boolean = false;
   popupMessage: string = '';
 
   ngOnInit() {
     this.fetchUserData();
+    this.fetchOrders();
 
     this.passwordForm = new FormGroup({
       oldPass: new FormControl(null, [
@@ -32,6 +35,10 @@ export class UserComponent implements OnInit {
 
   fetchUserData() {
     this.currentUser = JSON.parse(localStorage.getItem('authUser'));
+  }
+
+  fetchOrders(){
+    this.orders = this.currentUser.orders;
   }
 
   getUsersAndChangePassword() {

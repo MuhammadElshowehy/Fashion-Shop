@@ -13,7 +13,7 @@ export class CartComponent implements OnInit {
 
   cartProducts: ProductModel[] = [];
   authUser: UserModel;
-  isEmpty: boolean = false;
+  isEmpty: boolean = true;
   isLoading: boolean = false;
   cart: string = 'Cart';
   popupMessage: string = '';
@@ -21,8 +21,7 @@ export class CartComponent implements OnInit {
   validQuantity: boolean = true;
 
   getAuthUser() {
-    this.authUser = JSON.parse(localStorage.getItem('authUser'));
-    return this.authUser;
+    return JSON.parse(localStorage.getItem('authUser'));
   }
 
   setAuthUser(authUser: UserModel) {
@@ -30,22 +29,29 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cartProducts = this.getAuthUser().cart;
-    this.placeDefaultQuantity();
+    this.authUser = this.getAuthUser();
+    this.cartProducts = this.placeDefaultQuantity(this.authUser.cart);
+    this.authUser.cart = this.cartProducts;
+    this.setAuthUser(this.authUser);
     this.calcTotalPrice();
-    if (!this.cartProducts) {
+    if (this.cartProducts.length === 0) {
       this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
     }
   }
 
-  placeDefaultQuantity() {
-    for (let product of this.cartProducts) {
+  placeDefaultQuantity(cart: ProductModel[]) {
+    let edited: ProductModel[] = [];
+    for (let product of cart) {
       if (!product.quantity) {
         product = Object.assign({ quantity: 1 }, product);
+        edited.push(product);
+      } else {
+        edited.push(product);
       }
     }
-    this.authUser.cart = this.cartProducts;
-    this.setAuthUser(this.authUser);
+    return edited;
   }
 
   calcQuantity(item: ProductModel, event: Event) {
@@ -105,7 +111,7 @@ export class CartComponent implements OnInit {
       this.removedSuccessfully();
       this.authUser.cart = this.cartProducts;
       this.setAuthUser(this.authUser);
-      if (this.cartProducts) {
+      if (this.cartProducts.length) {
         this.calcTotalPrice();
       } else {
         this.isEmpty = true;
@@ -117,13 +123,13 @@ export class CartComponent implements OnInit {
 
   goToCheckOut() {
     this.isLoading = true;
-    setTimeout(() => {
-      if (this.validQuantity === false) {
-        return;
-      } else {
+    if (this.validQuantity === false) {
+      return;
+    } else {
+      setTimeout(() => {
         this.router.navigate(['/checkout']);
-      }
-      this.isLoading = false;
-    }, 1000);
+        this.isLoading = false;
+      }, 1000);
+    }
   }
 }

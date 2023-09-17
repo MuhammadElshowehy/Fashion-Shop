@@ -76,6 +76,12 @@ section:last-of-type div div svg {
   height: 25px;
   margin: 5px;
 }
+form .form-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  flex-direction: column !important;
+}
 form legend {
   font-size: 1.5rem;
   color: var(--purple);

@@ -20,6 +20,7 @@
       <img
         src="../../../assets/home/men clothes.jpg"
         alt="hijab style fashion"
+        loading="lazy"
       />
     </div>
   </section>
@@ -28,6 +29,7 @@
       <img
         src="../../../assets/home/hijab style.jpg"
         alt="hijab style fashion"
+        loading="lazy"
       />
     </div>
     <div class="text col-sm-12 col-md-8">
@@ -39,7 +41,7 @@
       <p>discover the perfect gift for every occasion</p>
     </div>
     <div class="col-sm-12 col-md-4">
-      <img src="../../../assets/home/jewellery.jpg" alt="hijab style fashion" />
+      <img src="../../../assets/home/jewellery.jpg" alt="hijab style fashion" loading="lazy"/>
     </div>
   </section>
   <section class="row">
@@ -47,6 +49,7 @@
       <img
         src="../../../assets/home/electronics.jpg"
         alt="hijab style fashion"
+        loading="lazy"
       />
     </div>
     <div class="text col-sm-12 col-md-8">
@@ -140,6 +143,9 @@
               placeholder="your name"
               formControlName="name"
             />
+            <span *ngIf="contactForm.get('name').invalid && contactForm.get('name').touched">
+              <span>Please insert your name!</span>
+            </span>
           </div>
           <div class="form-group">
             <input
@@ -150,6 +156,9 @@
               placeholder="your email address"
               formControlName="email"
             />
+            <span *ngIf="contactForm.get('email').invalid && contactForm.get('email').touched">
+              <span>Please insert a valid email!</span>
+            </span>
           </div>
           <div class="form-group">
             <textarea
@@ -160,6 +169,9 @@
               placeholder="your message"
               formControlName="msg"
             ></textarea>
+            <span *ngIf="contactForm.get('msg').invalid && contactForm.get('msg').touched">
+              <span>Please insert your message, at least 6 chars!</span>
+            </span>
           </div>
           <div class="send d-flex justify-content-end">
             <button class="btn" type="submit" [disabled]="contactForm.invalid">

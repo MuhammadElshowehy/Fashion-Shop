@@ -10,7 +10,7 @@ div {
   align-items: center;
   cursor: pointer;
   background-color: var(--orange);
-  z-index: 2;
+  z-index: 10;
   transition: 0.3s;
 }
 div:hover {

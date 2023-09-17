@@ -10,16 +10,26 @@ import { UserModel } from 'src/app/models/user-model';
 export class FavoriteComponent implements OnInit {
   favoriteProducts: ProductModel[];
   authUser: UserModel;
-  isEmpty: boolean = false;
+  isEmpty: boolean = true;
   isLoading: boolean = false;
   favorite: string = 'Favorite';
   PopupMessage: string = '';
 
+  getAuthUser() {
+    return JSON.parse(localStorage.getItem('authUser'));
+  }
+
+  setAuthUser(authUser: UserModel) {
+    localStorage.setItem('authUser', JSON.stringify(authUser));
+  }
+
   ngOnInit() {
-    this.authUser = JSON.parse(localStorage.getItem('authUser'));
+    this.authUser = this.getAuthUser();
     this.favoriteProducts = this.authUser.favorite;
-    if (!this.favoriteProducts) {
+    if (this.favoriteProducts.length === 0) {
       this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
     }
   }
 
@@ -35,10 +45,11 @@ export class FavoriteComponent implements OnInit {
   remove(index: number) {
     this.isLoading = true;
     setTimeout(() => {
-      this.authUser.favorite.splice(index, 1);
+      this.favoriteProducts.splice(index, 1);
+      this.authUser.favorite = this.favoriteProducts;
       this.removedSuccessfully();
-      localStorage.setItem('authUser', JSON.stringify(this.authUser));
-      if (this.authUser.favorite.length < 1) {
+      this.setAuthUser(this.authUser);
+      if (this.authUser.favorite.length === 0) {
         this.isEmpty = true;
       }
       this.isLoading = false;
@@ -50,19 +61,10 @@ export class FavoriteComponent implements OnInit {
     setTimeout(() => {
       this.favoriteProducts = [];
       this.authUser.favorite = [];
-      localStorage.setItem('authUser', JSON.stringify(this.authUser));
+      this.setAuthUser(this.authUser);
       this.isEmpty = true;
       this.isLoading = false;
     }, 1000);
-  }
-
-  isDuplicated(arr: ProductModel[], product: ProductModel) {
-    let duplicated = arr.find((item) => item.id === product.id);
-    if (duplicated) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   alreadyAdded() {
@@ -78,7 +80,7 @@ export class FavoriteComponent implements OnInit {
   addToCart(product: ProductModel) {
     this.isLoading = true;
     setTimeout(() => {
-      this.authUser = JSON.parse(localStorage.getItem('authUser'));
+      this.authUser = this.getAuthUser();
       let duplicated = this.authUser.cart.find(
         (item: ProductModel) => item.id === product.id
       );
@@ -88,7 +90,7 @@ export class FavoriteComponent implements OnInit {
         return;
       } else {
         this.authUser.cart.push(product);
-        localStorage.setItem('authUser', JSON.stringify(this.authUser));
+        this.setAuthUser(this.authUser);
         this.isLoading = false;
         this.addedSuccessfully();
       }

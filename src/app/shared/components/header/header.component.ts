@@ -53,7 +53,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.userLogo = (
         FirstLetterFromFName + FirstLetterFromLName
       ).toUpperCase();
-      console.log(this.userLogo);
     }
   }
 

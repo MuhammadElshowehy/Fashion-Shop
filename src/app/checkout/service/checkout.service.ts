@@ -7,9 +7,10 @@ import { ProductModel } from 'src/app/models/product-model';
 export class CheckoutService {
   products: ProductModel[] = [];
   totalPriceWithoutShipping: number;
+  shipping: number = 9.99;
 
   getProducts() {
-    this.products = JSON.parse(localStorage.getItem('cart'));
+    this.products = JSON.parse(localStorage.getItem('authUser')).cart;
     return this.products;
   }
 
@@ -23,15 +24,15 @@ export class CheckoutService {
   }
 
   totalWithShipping() {
-    let shipping: number = 9.99;
-    this.totalPriceWithoutShipping += shipping;
-    return this.totalPriceWithoutShipping;
+    let totalToPay: number;
+    totalToPay = this.totalPriceWithoutShipping + this.shipping;
+    return totalToPay;
   }
 
-  arriveDate() {
-    let arriveDate = new Date();
+  arrivalDate() {
+    let arrivalDate = new Date();
     let numberOfDaysToAdd = 2;
-    let result = arriveDate.setDate(arriveDate.getDate() + numberOfDaysToAdd);
+    let result = arrivalDate.setDate(arrivalDate.getDate() + numberOfDaysToAdd);
     return new Date(result).toLocaleDateString();
   }
 }

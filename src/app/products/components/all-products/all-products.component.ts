@@ -24,6 +24,14 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   isLogged: boolean = false;
   obs: Subscription;
 
+  getAuthUser() {
+    return JSON.parse(localStorage.getItem('authUser'));
+  }
+
+  setAuthUser(authUser: UserModel) {
+    localStorage.setItem('authUser', JSON.stringify(authUser));
+  }
+
   ngOnInit() {
     this.showProducts();
     this.getAllCategories();
@@ -51,10 +59,8 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   getAllCategories() {
     this.productsService.getAllCategories().subscribe(
       (res: string[]) => {
-        // console.log(res);
         res.unshift('all');
         this.categories = res;
-        // console.log(this.categories);
       },
       (error) => {
         this.PopupMessage = this.productsService.handleFetchError(error);
@@ -107,7 +113,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   /** start of add products to cart and localestorage methods: **/
   addToCart(product: ProductModel) {
     this.isLoading = true;
-    this.authUser = JSON.parse(localStorage.getItem('authUser'));
+    this.authUser = this.getAuthUser();
     setTimeout(() => {
       let duplicated = this.authUser.cart.find(
         (item) => item.id === product.id
@@ -119,7 +125,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
       } else {
         this.authUser.cart.push(product);
         this.addedSuccessfullyMsg();
-        localStorage.setItem('authUser', JSON.stringify(this.authUser));
+        this.setAuthUser(this.authUser);
         this.isLoading = false;
         return;
       }
@@ -140,7 +146,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   /** start of add products to favorite and localestorage methods: **/
   addToFavorite(product: ProductModel) {
     this.isLoading = true;
-    this.authUser = JSON.parse(localStorage.getItem('authUser'));
+    this.authUser = this.getAuthUser();
     setTimeout(() => {
       let duplicated = this.authUser.favorite.find(
         (item) => item.id === product.id
@@ -152,7 +158,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
       } else {
         this.authUser.favorite.push(product);
         this.addedSuccessfullyMsg();
-        localStorage.setItem('authUser', JSON.stringify(this.authUser));
+        this.setAuthUser(this.authUser);
         this.isLoading = false;
         return;
       }
