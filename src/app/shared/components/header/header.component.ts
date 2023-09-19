@@ -1,11 +1,5 @@
-import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { UserModel } from 'src/app/models/user-model';
@@ -22,7 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userLogo: string = '';
   collapsed: boolean = true;
 
-  constructor(private renderer: Renderer2, private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.obs = this.authService.authUserObs.subscribe((user) => {

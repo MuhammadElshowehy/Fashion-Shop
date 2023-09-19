@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { CheckoutComponent } from './component/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { CheckoutRoutingModule } from './checkout-routing.module';
 
 
 
@@ -13,9 +13,9 @@ import { SharedModule } from '../shared/shared.module';
     CheckoutComponent
   ],
   imports: [
+    CheckoutRoutingModule,
     CommonModule,
     ReactiveFormsModule,
-    RouterModule,
     SharedModule
   ]
 })

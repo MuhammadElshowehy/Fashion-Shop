@@ -41,39 +41,26 @@ export class UserComponent implements OnInit {
     this.orders = this.currentUser.orders;
   }
 
-  getUsersAndChangePassword() {
-    this.authService.checkTypeOfUsersInLocaleStorage();
-    let users: UserModel[] = this.authService.usersArray;
-    for (let user of users) {
-      if (
-        this.currentUser.email === user.email &&
-        this.passwordForm.value.oldPass === user.password
-      ) {
-        console.log(true);
-        user.password = this.passwordForm.value.newPass;
-        localStorage.setItem('users', JSON.stringify(users));
+  ChangePassword() {
+    let authUser = JSON.parse(localStorage.getItem('authUser'));
+    if (authUser) {
+      if (this.passwordForm.value.oldPass === authUser.password) {
+        authUser.password = this.passwordForm.value.newPass;
+        localStorage.setItem('authUser', JSON.stringify(authUser));
+        this.fetchUserData();
         this.popupMessage = 'Password changed successfully';
-        this.changePassForAuthUserToo();
         this.passwordForm.reset();
-        return;
+      } else {
+        this.popupMessage = 'Old password is incorrect!';
       }
     }
-    console.log(false);
-    this.popupMessage = 'Old password is incorrect!';
-  }
-
-  changePassForAuthUserToo() {
-    let authUser = JSON.parse(localStorage.getItem('authUser'));
-    authUser.password = this.passwordForm.value.newPass;
-    localStorage.setItem('authUser', JSON.stringify(authUser));
-    this.fetchUserData();
   }
 
   onSubmit() {
     if (this.passwordForm.valid) {
       this.isLoading = true;
       setTimeout(() => {
-        this.getUsersAndChangePassword();
+        this.ChangePassword();
         this.isLoading = false;
       }, 1000);
     }
@@ -101,6 +88,8 @@ export class UserComponent implements OnInit {
           }, 1000);
         }
       }
+    } else {
+      this.popupMessage = 'You did not type delete correctly!';
     }
   }
 }

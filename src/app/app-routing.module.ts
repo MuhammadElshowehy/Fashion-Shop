@@ -1,31 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { HomeComponent } from './home/component/home.component';
-import { AllProductsComponent } from './products/components/all-products/all-products.component';
-import { ProductsDetailsComponent } from './products/components/products-details/products-details.component';
-import { CartComponent } from './cart/component/cart.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { FavoriteComponent } from './favorite/component/favorite.component';
-import { UserComponent } from './user/component/user.component';
-import { SignUpComponent } from './auth/components/sign-up/sign-up.component';
-import { SignInComponent } from './auth/components/sign-in/sign-in.component';
-import { CheckoutComponent } from './checkout/component/checkout/checkout.component';
-import { AuthGuard } from './auth/auth-guard.service';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'products', component: AllProductsComponent },
-  { path: 'details/:id', component: ProductsDetailsComponent },
-  { path: 'cart', canActivate: [AuthGuard], component: CartComponent },
-  { path: 'favorite', canActivate: [AuthGuard], component: FavoriteComponent },
-  { path: 'checkout', canActivate: [AuthGuard], component: CheckoutComponent },
-  { path: 'user', canActivate: [AuthGuard], component: UserComponent },
-  { path: 'signup', component: SignUpComponent },
-  { path: 'signin', component: SignInComponent },
-
-  { path: '**', component: PageNotFoundComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+  },
+  {
+    path: 'cart',
+    loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule),
+  },
+  {
+    path: 'checkout',
+    loadChildren: () =>
+      import('./checkout/checkout.module').then((m) => m.CheckoutModule),
+  },
+  {
+    path: 'favorite',
+    loadChildren: () =>
+      import('./favorite/favorite.module').then((m) => m.FavoriteModule),
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+  },
 ];
 
 @NgModule({

@@ -3,7 +3,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { AllProductsComponent } from './components/all-products/all-products.component';
 import { ProductsDetailsComponent } from './components/products-details/products-details.component';
-import { RouterModule } from '@angular/router';
+import { ProductsRoutingModule } from './products-routing.module';
 
 @NgModule({
   declarations: [
@@ -11,8 +11,8 @@ import { RouterModule } from '@angular/router';
     ProductsDetailsComponent
   ],
   imports: [
+    ProductsRoutingModule,
     SharedModule,
-    RouterModule,
   ]
 })
 export class ProductsModule { }

@@ -81,6 +81,7 @@ export class AuthService {
     let authUser: UserModel = JSON.parse(localStorage.getItem('authUser'));
     for (let i = 0; i < this.usersArray.length; i++) {
       if (this.usersArray[i].email === authUser.email) {
+        authUser.isLogged = false;
         this.usersArray.splice(i, 1, authUser);
         localStorage.setItem('users', JSON.stringify(this.usersArray));
       }

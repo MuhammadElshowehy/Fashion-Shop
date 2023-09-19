@@ -19,6 +19,7 @@ export class SignUpComponent implements OnInit {
   newUser: UserModel = {
     fName: '',
     lName: '',
+    isLogged: false,
     email: '',
     password: '',
     cart: [],

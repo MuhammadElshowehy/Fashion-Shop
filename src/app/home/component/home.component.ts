@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     if (this.contactForm.valid) {
       this.isLoading = true;
       setTimeout(() => {
-        let msg: string = 'Your message sent successfully, thank you.';
+        let msg: string = 'Your message sent successfully, thank you';
         this.popupMessage = msg;
         this.contactForm.reset();
         this.isLoading = false;
