@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { UserModel } from 'src/app/models/user-model';
 import { Router } from '@angular/router';
+import { ProductsService } from 'src/app/products/service/products.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,7 +11,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-in.component.css'],
 })
 export class SignInComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private productsService: ProductsService
+  ) {}
 
   isLoading: boolean = false;
   popupMessage: string = '';
@@ -28,7 +33,7 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  showPassword(password: HTMLInputElement){
+  showPassword(password: HTMLInputElement) {
     this.authService.showPassword(password);
   }
 
@@ -73,6 +78,8 @@ export class SignInComponent implements OnInit {
                 this.authService.emitAuthUser(this.authService.loggedUser);
                 setTimeout(() => {
                   this.router.navigate(['/home']);
+                  this.productsService.calcCartLength();
+                  this.productsService.calcFavLength();
                   this.isLoading = false;
                 }, 2500);
                 return;

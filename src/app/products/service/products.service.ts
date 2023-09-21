@@ -49,6 +49,7 @@ export class ProductsService {
     return this.http.get(apiLink);
   }
 
+  // cart & fav icon in header //
   calcCartLength() {
     if (localStorage.getItem('authUser')) {
       let length: number = JSON.parse(localStorage.getItem('authUser')).cart
