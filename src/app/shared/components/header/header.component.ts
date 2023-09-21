@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { UserModel } from 'src/app/models/user-model';
+import { ProductsService } from 'src/app/products/service/products.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userLogo: string = '';
   collapsed: boolean = true;
 
-  constructor(private authService: AuthService) {}
+  cartLength: number;
+  favLength: number;
+
+  constructor(
+    private authService: AuthService,
+    private productsService: ProductsService
+  ) {}
 
   ngOnInit() {
     this.obs = this.authService.authUserObs.subscribe((user) => {
@@ -25,6 +32,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.getUserName();
       }
     });
+    this.calcCartLength();
+    this.productsService.cartIcon.subscribe((length) => {
+      this.cartLength = length;
+    });
+    this.calcFavLength();
+    this.productsService.favIcon.subscribe((length) => {
+      this.favLength = length;
+    });
+  }
+
+  calcCartLength() {
+    this.cartLength = this.productsService.calcCartLength();
+  }
+
+  calcFavLength() {
+    this.favLength = this.productsService.calcFavLength();
   }
 
   getUserName() {

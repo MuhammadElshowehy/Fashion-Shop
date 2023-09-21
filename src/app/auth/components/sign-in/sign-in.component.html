@@ -36,11 +36,16 @@
           <label class="form-label" for="pass">Password</label>
           <input
             class="form-control"
-            type="text"
+            type="password"
             id="pass"
             name="pass"
             formControlName="password"
+            #password
           />
+          <div class="m-1">
+            <input type="checkbox" (click)="showPassword(password)" />Show
+            Password
+          </div>
           <span
             *ngIf="
               signinForm.get('password').invalid &&

@@ -16,7 +16,7 @@
           name="search"
           class="form-control"
           placeholder="search products"
-          (input)="search($event)"
+          (keyup)="search($event)"
         />
       </div>
     </div>
@@ -40,7 +40,7 @@
         <div class="actions" *ngIf="isLogged">
           <button class="btn">
             <img
-              (click)="addToCart(product)"
+            (click)="addToCart(product)"
               src="assets/cart_icon-removebg-preview.png"
               alt="cart"
               loading="lazy"

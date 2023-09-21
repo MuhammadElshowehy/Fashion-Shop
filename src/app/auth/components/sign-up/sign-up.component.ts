@@ -45,6 +45,10 @@ export class SignUpComponent implements OnInit {
     });
   }
 
+  showPassword(password: HTMLInputElement){
+    this.authService.showPassword(password);
+  }
+
   received(data: string) {
     this.popupMessage = data;
   }

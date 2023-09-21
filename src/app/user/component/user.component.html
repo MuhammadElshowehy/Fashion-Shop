@@ -16,7 +16,6 @@
         <p><span>Last name: </span>{{ currentUser.lName }}</p>
       </div>
       <p class="email"><span>Email: </span>{{ currentUser.email }}</p>
-      <p><span>Password: </span>{{ currentUser.password }}</p>
     </div>
     <h2 class="text-center" *ngIf="orders.length">Your orders</h2>
     <div class="orders" *ngFor="let order of orders; let i = index">

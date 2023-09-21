@@ -95,17 +95,16 @@ export class AllProductsComponent implements OnInit, OnDestroy {
 
   /** start search method: **/
   search(event: Event) {
-    let searchInput = (<HTMLInputElement>event.target).value;
     let searchResult: ProductModel[] = [];
+    let searchInput = (<HTMLInputElement>event.target).value;
+    for (let item of this.products) {
+      if (item.title.toLowerCase().includes(searchInput.toLowerCase())) {
+        searchResult.push(item);
+      }
+    }
+    this.products = searchResult;
     if (searchInput === '') {
       this.showProducts();
-    } else {
-      for (let item of this.products) {
-        if (item.title.toLowerCase().includes(searchInput.toLowerCase())) {
-          searchResult.push(item);
-        }
-      }
-      this.products = searchResult;
     }
   }
   /** end search method. **/
@@ -127,6 +126,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
         this.addedSuccessfullyMsg();
         this.setAuthUser(this.authUser);
         this.isLoading = false;
+        this.calcCartLength();
         return;
       }
     }, 1000);
@@ -160,11 +160,20 @@ export class AllProductsComponent implements OnInit, OnDestroy {
         this.addedSuccessfullyMsg();
         this.setAuthUser(this.authUser);
         this.isLoading = false;
+        this.calcFavLength();
         return;
       }
     }, 1000);
   }
   /** end of add products to favorite and localestorage methods: **/
+
+  calcCartLength() {
+    this.productsService.calcCartLength();
+  }
+
+  calcFavLength() {
+    this.productsService.calcFavLength();
+  }
 
   ngOnDestroy() {
     this.obs.unsubscribe();

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductModel } from 'src/app/models/product-model';
 import { UserModel } from 'src/app/models/user-model';
+import { ProductsService } from 'src/app/products/service/products.service';
 
 @Component({
   selector: 'app-favorite',
@@ -8,6 +9,8 @@ import { UserModel } from 'src/app/models/user-model';
   styleUrls: ['./favorite.component.css'],
 })
 export class FavoriteComponent implements OnInit {
+  constructor(private productsService: ProductsService){}
+
   favoriteProducts: ProductModel[];
   authUser: UserModel;
   isEmpty: boolean = true;
@@ -53,6 +56,7 @@ export class FavoriteComponent implements OnInit {
         this.isEmpty = true;
       }
       this.isLoading = false;
+      this.productsService.calcFavLength();
     }, 1000);
   }
 
@@ -64,6 +68,7 @@ export class FavoriteComponent implements OnInit {
       this.setAuthUser(this.authUser);
       this.isEmpty = true;
       this.isLoading = false;
+      this.productsService.calcFavLength();
     }, 1000);
   }
 
@@ -93,6 +98,7 @@ export class FavoriteComponent implements OnInit {
         this.setAuthUser(this.authUser);
         this.isLoading = false;
         this.addedSuccessfully();
+        this.productsService.calcCartLength();
       }
     }, 1000);
   }

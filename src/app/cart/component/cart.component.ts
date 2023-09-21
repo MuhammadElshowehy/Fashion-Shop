@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductModel } from 'src/app/models/product-model';
 import { UserModel } from 'src/app/models/user-model';
+import { ProductsService } from 'src/app/products/service/products.service';
 
 @Component({
   selector: 'app-cart',
@@ -9,7 +10,10 @@ import { UserModel } from 'src/app/models/user-model';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private productsService: ProductsService
+  ) {}
 
   cartProducts: ProductModel[] = [];
   authUser: UserModel;
@@ -101,6 +105,7 @@ export class CartComponent implements OnInit {
       this.isEmpty = true;
       this.totalPrice = 0;
       this.isLoading = false;
+      this.productsService.calcCartLength();
     }, 1000);
   }
 
@@ -118,6 +123,7 @@ export class CartComponent implements OnInit {
         this.totalPrice = 0;
       }
       this.isLoading = false;
+      this.productsService.calcCartLength();
     }, 1000);
   }
 

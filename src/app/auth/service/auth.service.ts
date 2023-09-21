@@ -25,6 +25,14 @@ export class AuthService {
   isCreatedSuccessfully: boolean = false;
   authUserObs = new BehaviorSubject<UserModel>(null);
 
+  showPassword(password: HTMLInputElement) {
+    if (password.type === 'password') {
+      password.type = 'text';
+    } else {
+      password.type = 'password';
+    }
+  }
+
   checkTypeOfUsersInLocaleStorage() {
     this.usersArray = [];
     if (localStorage.getItem('users')) {

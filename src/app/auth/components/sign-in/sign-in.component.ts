@@ -28,6 +28,10 @@ export class SignInComponent implements OnInit {
     });
   }
 
+  showPassword(password: HTMLInputElement){
+    this.authService.showPassword(password);
+  }
+
   resetForm() {
     this.signinForm.reset();
   }
