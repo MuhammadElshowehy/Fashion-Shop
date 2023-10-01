@@ -56,6 +56,10 @@ export class UserComponent implements OnInit {
     }
   }
 
+  showPassword(password: HTMLInputElement) {
+    this.authService.showPassword(password);
+  }
+
   onSubmit() {
     if (this.passwordForm.valid) {
       this.isLoading = true;

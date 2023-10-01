@@ -11,6 +11,7 @@ nav {
   left: 0;
   top: 0;
   z-index: 9;
+  box-shadow: 0 0 5px 2px var(--purple);
 }
 .badge {
   margin-left: 3px;

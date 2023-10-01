@@ -7,7 +7,7 @@
 <!-- separate -->
 <main>
   <section class="row">
-    <div class="text col-sm-12 col-md-8">
+    <div class="text col-sm-12 col-md-6">
       <p>
         Welcome to Happy Cart <br />
         sale all item up to 40%
@@ -16,49 +16,42 @@
         Shop now
       </button>
     </div>
-    <div class="col-sm-12 col-md-4">
-      <img
-        src="assets/home-assets/men clothes.jpg"
-        alt="men-clothes"
-        loading="lazy"
-      />
+    <div class="image col-sm-12 col-md-6">
+      <img src="assets/home-assets/1.jpg" alt="happy-cart" loading="lazy" />
     </div>
   </section>
   <section class="row">
-    <div class="col-sm-12 col-md-4">
+    <div class="image col-sm-12 col-md-6">
       <img
-        src="assets/home-assets/hijab style.jpg"
+        src="assets/home-assets/2.jpg"
         alt="hijab style fashion"
         loading="lazy"
       />
     </div>
-    <div class="text col-sm-12 col-md-8">
+    <div class="text col-sm-12 col-md-6">
       <p>stay ahead of the fashion curve with our latest arrivals</p>
     </div>
   </section>
   <section class="row">
-    <div class="text col-sm-12 col-md-8">
-      <p>discover the perfect gift for every occasion</p>
+    <div class="text col-sm-12 col-md-6">
+      <p>choose the perfect gift for every occasion</p>
     </div>
-    <div class="col-sm-12 col-md-4">
-      <img src="assets/home-assets/jewellery.jpg" alt="jewelry" loading="lazy"/>
+    <div class="image col-sm-12 col-md-6">
+      <img src="assets/home-assets/3.jpg" alt="jewelry" loading="lazy" />
     </div>
   </section>
   <section class="row">
-    <div class="col-sm-12 col-md-4">
-      <img
-        src="assets/home-assets/electronics.jpg"
-        alt="electronics"
-        loading="lazy"
-      />
+    <div class="image col-sm-12 col-md-6">
+      <img src="assets/home-assets/4.jpg" alt="electronics" loading="lazy" />
     </div>
-    <div class="text col-sm-12 col-md-8">
+    <div class="text col-sm-12 col-md-6">
       <p>discover what's new in electronics</p>
       <button class="btn" type="button" [routerLink]="['/products']">
         Shop now
       </button>
     </div>
   </section>
+  <hr />
   <section class="row">
     <div class="text col-sm-12 col-md-4">
       <p class="follow-us">Follow us</p>
@@ -143,7 +136,12 @@
               placeholder="your name"
               formControlName="name"
             />
-            <span *ngIf="contactForm.get('name').invalid && contactForm.get('name').touched">
+            <span
+              *ngIf="
+                contactForm.get('name').invalid &&
+                contactForm.get('name').touched
+              "
+            >
               <span>Please insert your name!</span>
             </span>
           </div>
@@ -156,7 +154,12 @@
               placeholder="your email address"
               formControlName="email"
             />
-            <span *ngIf="contactForm.get('email').invalid && contactForm.get('email').touched">
+            <span
+              *ngIf="
+                contactForm.get('email').invalid &&
+                contactForm.get('email').touched
+              "
+            >
               <span>Please insert a valid email!</span>
             </span>
           </div>
@@ -169,7 +172,11 @@
               placeholder="your message"
               formControlName="msg"
             ></textarea>
-            <span *ngIf="contactForm.get('msg').invalid && contactForm.get('msg').touched">
+            <span
+              *ngIf="
+                contactForm.get('msg').invalid && contactForm.get('msg').touched
+              "
+            >
               <span>Please insert your message, at least 6 chars!</span>
             </span>
           </div>

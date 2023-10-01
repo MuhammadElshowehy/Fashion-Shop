@@ -2,13 +2,19 @@ section {
   height: fit-content;
   row-gap: 10px;
   margin-bottom: 20px;
-  box-shadow: 0 0 5px 0 var(--darkPurple);
 }
 section:last-of-type {
   margin-bottom: 0;
 }
+.image {
+  padding: 0;
+  height: 90vh;
+  border-radius: 10px;
+  overflow: hidden;
+}
 img {
   max-width: 100%;
+  height: 100%;
 }
 section div {
   display: flex;
@@ -18,35 +24,40 @@ section div {
   row-gap: 10px;
 }
 section .text {
-  padding: 10px;
+  padding: 10px 20px;
 }
 section div p {
   position: relative;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
-  line-height: 140%;
-  letter-spacing: 10px;
+  line-height: 160%;
+  letter-spacing: 2px;
   text-transform: uppercase;
   text-align: center;
   font-style: italic;
   color: var(--purple);
+  padding: 10px;
+  border: 1.5px solid var(--darkOrange);
+  border-radius: 10px;
 }
 section div p::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 30%;
-  height: 5px;
+  left: 25%;
+  top: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
   background-color: var(--darkOrange);
 }
 section div p::after {
   content: "";
   position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 30%;
-  height: 5px;
+  right: 25%;
+  bottom: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
   background-color: var(--orange);
 }
 section div button {

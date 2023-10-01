@@ -21,7 +21,10 @@ export class CheckoutGuard implements CanActivate {
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
     let authUser = JSON.parse(localStorage.getItem('authUser'));
-    if (authUser.cart.length >= 1) {
+    if (
+      authUser.cart.length >= 1 &&
+      authUser.cart[authUser.cart.length - 1].quantity >= 1
+    ) {
       return true;
     } else {
       this.router.navigate(['/cart']);

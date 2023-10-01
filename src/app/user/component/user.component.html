@@ -60,11 +60,16 @@
         <div class="form-group">
           <label for="old" class="form-label">Old password</label>
           <input
-            type="text"
+            type="password"
             class="form-control w-50"
             id="old"
             formControlName="oldPass"
+            #oldPass
           />
+          <div class="m-1">
+            <input type="checkbox" (click)="showPassword(oldPass)" />show
+            password
+          </div>
           <span
             *ngIf="
               passwordForm.get('oldPass').invalid &&
@@ -80,14 +85,19 @@
             </span>
           </span>
         </div>
-        <div class="form-group">
+        <div class="form-group mt-3">
           <label for="new" class="form-label">New password</label>
           <input
-            type="text"
+            type="password"
             class="form-control w-50"
             id="new"
             formControlName="newPass"
+            #newPass
           />
+          <div class="m-1">
+            <input type="checkbox" (click)="showPassword(newPass)" />show
+            password
+          </div>
           <span
             *ngIf="
               passwordForm.get('newPass').invalid &&
