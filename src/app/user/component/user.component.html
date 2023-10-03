@@ -66,9 +66,15 @@
             formControlName="oldPass"
             #oldPass
           />
-          <div class="m-1">
-            <input type="checkbox" (click)="showPassword(oldPass)" />show
-            password
+          <div class="m-1 show-password">
+            <div>
+              <input
+                type="checkbox"
+                id="show-old"
+                (click)="showPassword(oldPass)"
+              />
+            </div>
+            <label for="show-old">show password</label>
           </div>
           <span
             *ngIf="
@@ -94,9 +100,15 @@
             formControlName="newPass"
             #newPass
           />
-          <div class="m-1">
-            <input type="checkbox" (click)="showPassword(newPass)" />show
-            password
+          <div class="m-1 show-password">
+            <div>
+              <input
+                type="checkbox"
+                id="show-new"
+                (click)="showPassword(newPass)"
+              />
+            </div>
+            <label for="show-new">show password</label>
           </div>
           <span
             *ngIf="
