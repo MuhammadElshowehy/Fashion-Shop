@@ -3,13 +3,19 @@
 }
 .card-title {
   color: var(--orange);
-  max-height: 20px;
   overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: pre-wrap;
 }
-.card-text{
-  max-height: 25px;
-  overflow: hidden;
+.card-text {
   margin-bottom: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: pre-wrap;
 }
 .card img.image-product {
   max-width: 100%;
@@ -25,7 +31,7 @@
   width: 100%;
   margin: 0;
 }
-.rating{
+.rating {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,6 +40,6 @@
 .rating p {
   margin-bottom: 0;
 }
-.rating span{
+.rating span {
   color: var(--orange);
 }

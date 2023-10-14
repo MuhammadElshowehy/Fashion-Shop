@@ -43,8 +43,13 @@
             #password
           />
           <div class="m-1">
-            <input type="checkbox" (click)="showPassword(password)" />show
-            password
+            <input
+              type="checkbox"
+              id="show"
+              (click)="showPassword(password)"
+              class="m-1"
+            />
+            <label for="show">show password</label>
           </div>
           <span
             *ngIf="

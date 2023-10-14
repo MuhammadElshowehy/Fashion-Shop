@@ -1,8 +1,8 @@
 :root {
-  --orange: #D98A29;
-  --darkOrange: #D94B2B;
+  --orange: #d98a29;
+  --darkOrange: #d94b2b;
   --darkPurple: #590e2a;
-  --purple: #A63F82;
+  --purple: #a63f82;
   --white: #ffffff;
 }
 html * {
@@ -18,7 +18,7 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 }
-a{
+a {
   text-decoration: none;
   cursor: pointer;
 }
@@ -27,12 +27,18 @@ ul {
   padding: 0;
   margin: 0;
 }
-input:active,
-input:focus,
+input:active[type="text"],
+input:focus[type="text"],
+input:active[type="password"],
+input:focus[type="password"],
+input:active[type="email"],
+input:focus[type="email"],
+input:active[type="number"],
+input:focus[type="number"],
 textarea:active,
 textarea:focus,
 button:active,
-button:focus{
+button:focus {
   box-shadow: 0 0 0 0.25rem rgba(89, 14, 42, 0.5) !important;
 }
 /* start style form inputs when validation */
@@ -44,7 +50,7 @@ textarea.ng-touched.ng-invalid {
   color: #dc3545;
 }
 /* end style form inputs when validation */
-h1{
+h1 {
   color: var(--darkPurple);
   font-size: 2rem;
   text-transform: capitalize;
@@ -54,10 +60,7 @@ h1{
   text-align: center;
 }
 @media (max-width: 768px) {
-  h1{
+  h1 {
     font-size: 1.5rem;
   }
-}
-::selection {
-  background-color: var(--orange);
 }

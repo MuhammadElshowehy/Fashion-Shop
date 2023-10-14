@@ -1,5 +1,4 @@
 section {
-  height: fit-content;
   row-gap: 10px;
   margin-bottom: 20px;
 }
@@ -8,13 +7,13 @@ section:last-of-type {
 }
 .image {
   padding: 0;
-  height: 90vh;
-  border-radius: 10px;
+  height: 50vh;
   overflow: hidden;
 }
 img {
-  max-width: 100%;
+  width: 75%;
   height: 100%;
+  border-radius: 10px;
 }
 section div {
   display: flex;
@@ -24,7 +23,8 @@ section div {
   row-gap: 10px;
 }
 section .text {
-  padding: 10px 20px;
+  padding: 0;
+  height: 50vh;
 }
 section div p {
   position: relative;
@@ -37,6 +37,7 @@ section div p {
   font-style: italic;
   color: var(--purple);
   padding: 10px;
+  margin: 0 12.5%;
   border: 1.5px solid var(--darkOrange);
   border-radius: 10px;
 }
