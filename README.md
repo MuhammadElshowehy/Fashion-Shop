@@ -2,6 +2,9 @@
 
 Happy cart is an E-Commerce project i implemented for my portfolio. 
 
+## Visit site
+https://muhammadelshowehy.github.io/happyCart/home
+
 ## Before installation
 
 - this is angular version 16.2.1
